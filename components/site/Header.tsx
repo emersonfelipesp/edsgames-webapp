@@ -1,11 +1,11 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import type { Dictionary, Locale } from "@/lib/i18n";
 import { route, SECTION_IDS, type RouteKey } from "@/lib/routes";
 import { LanguageToggle } from "./LanguageToggle";
+import { LOGO_SOURCES, ResponsiveImage } from "@/components/ui/ResponsiveImage";
 import { ButtonLink } from "@/components/ui/Button";
 import { cn } from "@/lib/cn";
 
@@ -51,8 +51,9 @@ export function Header({ locale, routeKey, dict }: HeaderProps) {
     <header className="sticky top-0 z-50 border-b border-line/70 bg-void/85 backdrop-blur-md">
       <div className="mx-auto flex h-16 w-full max-w-6xl items-center gap-3 px-5 sm:h-20 sm:px-8">
         <Link href={home} className="flex shrink-0 items-center" aria-label={dict.meta.siteName}>
-          <Image
-            src="/img/logo.png"
+          <ResponsiveImage
+            sources={LOGO_SOURCES}
+            sizes="(max-width: 640px) 152px, 194px"
             alt={dict.meta.siteName}
             width={1032}
             height={298}

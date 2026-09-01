@@ -17,7 +17,9 @@ export const CONTENT_SECURITY_POLICY = [
   "base-uri 'none'",
   "object-src 'none'",
   "form-action 'none'",
-  "frame-ancestors 'none'",
+  // `frame-ancestors` is deliberately absent: a meta tag cannot enforce it, and
+  // including it only makes the browser log an error. It is sent as a real
+  // header instead — see `public/_headers` and DEPLOYMENT.md.
   "script-src 'self' 'unsafe-inline'",
   "style-src 'self' 'unsafe-inline'",
   "img-src 'self' data: blob:",

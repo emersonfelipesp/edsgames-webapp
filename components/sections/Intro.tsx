@@ -21,7 +21,6 @@ export function Intro({ dict }: IntroProps) {
           videoId={YOUTUBE_VIDEO_ID}
           label={dict.intro.videoLabel}
           playLabel={dict.actions.playVideo}
-          poster="/img/interface.webp"
         />
       </div>
     </Section>

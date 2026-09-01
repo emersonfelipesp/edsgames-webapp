@@ -182,6 +182,7 @@ export const en: Dictionary = {
     ],
     shippingNote: "Order it and receive it in the comfort of your home!",
     paymentsLabel: "Payment methods",
+    cta: "See hard drives and USB sticks for sale",
     contactCta: "Talk to sales",
   },
 
