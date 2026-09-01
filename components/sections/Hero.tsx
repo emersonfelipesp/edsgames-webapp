@@ -26,12 +26,12 @@ export function Hero({ locale, dict }: HeroProps) {
 
       <div className="relative mx-auto grid w-full max-w-6xl gap-12 px-5 py-16 sm:px-8 sm:py-24 lg:grid-cols-2 lg:items-center lg:gap-8">
         <div>
-          <p className="inline-flex items-center gap-2 rounded-full border border-neon-lime/40 bg-neon-lime/10 px-3 py-1.5 font-display text-[0.5625rem] uppercase tracking-[0.15em] text-neon-lime">
+          <p className="inline-flex items-center gap-2 rounded-full border border-neon-lime/40 bg-neon-lime/10 px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.2em] text-neon-lime">
             <span aria-hidden="true" className="size-1.5 rounded-full bg-neon-lime animate-blink" />
             {dict.hero.badge}
           </p>
 
-          <h1 className="text-glitch mt-6 font-display text-[1.75rem] uppercase leading-[1.3] text-balance sm:text-4xl lg:text-[3.25rem] lg:leading-[1.2]">
+          <h1 className="text-glitch mt-6 font-display text-4xl font-bold uppercase leading-[1.15] text-balance sm:text-6xl lg:text-[4.25rem]">
             {dict.hero.title}
           </h1>
 
@@ -57,7 +57,7 @@ export function Hero({ locale, dict }: HeroProps) {
               <div key={stat.label}>
                 <dt className="sr-only">{stat.label}</dt>
                 <dd>
-                  <span className="block font-display text-lg text-neon-amber sm:text-2xl">
+                  <span className="block font-display text-2xl font-bold text-neon-amber sm:text-3xl">
                     {stat.value}
                   </span>
                   <span className="mt-2 block text-xs leading-snug text-faint sm:text-sm">

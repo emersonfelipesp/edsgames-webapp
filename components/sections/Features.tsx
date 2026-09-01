@@ -2,6 +2,7 @@ import type { Dictionary } from "@/lib/i18n";
 import { SECTION_IDS } from "@/lib/routes";
 import { Section, SectionHeading } from "@/components/ui/Section";
 import { Panel } from "@/components/ui/Panel";
+import { LazyScene } from "@/components/three/LazyScene";
 
 type FeaturesProps = {
   dict: Dictionary;
@@ -28,11 +29,11 @@ const ICONS = [
 export function Features({ dict }: FeaturesProps) {
   return (
     <Section id={SECTION_IDS.features}>
-      <SectionHeading
-        eyebrow={dict.features.eyebrow}
-        title={dict.features.title}
-        align="center"
-      />
+      <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.8fr)] lg:items-center">
+        <SectionHeading eyebrow={dict.features.eyebrow} title={dict.features.title} />
+        <LazyScene variant="character" className="lg:h-72" />
+      </div>
+
       <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
         {dict.features.items.map((item, index) => (
           <Panel key={item.title} interactive className="p-6">
@@ -44,7 +45,7 @@ export function Features({ dict }: FeaturesProps) {
             >
               <path d={ICONS[index % ICONS.length]} />
             </svg>
-            <h3 className="mt-5 font-display text-[0.6875rem] uppercase leading-relaxed">
+            <h3 className="mt-5 font-display font-semibold text-sm uppercase leading-relaxed">
               {item.title}
             </h3>
             <p className="mt-3 text-sm leading-relaxed text-muted">{item.description}</p>

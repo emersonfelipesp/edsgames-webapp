@@ -36,16 +36,16 @@ export function SectionHeading({
   return (
     <header className={cn("max-w-3xl", align === "center" && "mx-auto text-center")}>
       {eyebrow ? (
-        <p className="font-display text-[0.625rem] uppercase tracking-[0.2em] text-neon-cyan">
+        <p className="text-xs font-semibold uppercase tracking-[0.25em] text-neon-cyan">
           {eyebrow}
         </p>
       ) : null}
       <Tag
         className={cn(
-          "mt-3 font-display uppercase leading-[1.35] text-balance",
+          "mt-3 font-display font-bold uppercase leading-[1.25] text-balance",
           Tag === "h1"
-            ? "text-2xl sm:text-4xl lg:text-5xl"
-            : "text-lg sm:text-2xl lg:text-3xl",
+            ? "text-3xl sm:text-5xl lg:text-6xl"
+            : "text-2xl sm:text-3xl lg:text-4xl",
         )}
       >
         {title}

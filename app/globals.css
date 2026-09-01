@@ -24,7 +24,7 @@
   --color-neon-amber: #ffb547;
   --color-neon-lime: #7cf67c;
 
-  --font-display: var(--font-press-start), ui-monospace, "Courier New", monospace;
+  --font-display: var(--font-pixel), ui-monospace, "Courier New", monospace;
   --font-sans: var(--font-space-grotesk), ui-sans-serif, system-ui, sans-serif;
 
   --radius-panel: 1.25rem;

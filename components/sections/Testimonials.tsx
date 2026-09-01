@@ -38,7 +38,7 @@ export function Testimonials({ dict }: TestimonialsProps) {
                   className="size-11 rounded-full border border-line object-cover"
                 />
                 <span>
-                  <span className="block font-display text-[0.5625rem] uppercase leading-relaxed">
+                  <span className="block font-display font-semibold text-xs uppercase leading-relaxed">
                     {item.name}
                   </span>
                   <span className="mt-1 block text-xs text-faint">{item.role}</span>
