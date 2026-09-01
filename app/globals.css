@@ -1,26 +1,148 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* ------------------------------------------------------------------------- */
+/* Design tokens                                                              */
+/*                                                                            */
+/* The palette is taken from the EDSGAMES logo: a cyan and magenta chromatic  */
+/* split over a near-black ground. Amber is the single call-to-action colour  */
+/* so that primary actions never compete with the decorative neon.            */
+/* ------------------------------------------------------------------------- */
+@theme {
+  --color-void: #06060c;
+  --color-abyss: #0a0a14;
+  --color-panel: #10101d;
+  --color-panel-raised: #171728;
+  --color-line: #262640;
+  --color-line-bright: #3a3a5e;
+
+  --color-ink: #f4f4f9;
+  --color-muted: #9d9dbb;
+  --color-faint: #6e6e8c;
+
+  --color-neon-cyan: #22e1f2;
+  --color-neon-magenta: #f23bd4;
+  --color-neon-amber: #ffb547;
+  --color-neon-lime: #7cf67c;
+
+  --font-display: var(--font-press-start), ui-monospace, "Courier New", monospace;
+  --font-sans: var(--font-space-grotesk), ui-sans-serif, system-ui, sans-serif;
+
+  --radius-panel: 1.25rem;
+
+  --shadow-neon-cyan: 0 0 0 1px color-mix(in oklab, var(--color-neon-cyan) 45%, transparent),
+    0 0 32px -12px var(--color-neon-cyan);
+  --shadow-neon-magenta: 0 0 0 1px color-mix(in oklab, var(--color-neon-magenta) 45%, transparent),
+    0 0 32px -12px var(--color-neon-magenta);
+
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-marquee: marquee 32s linear infinite;
+  --animate-blink: blink 1.1s steps(2, start) infinite;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+/* ------------------------------------------------------------------------- */
+/* Base                                                                       */
+/* ------------------------------------------------------------------------- */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--color-void);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-neon-cyan);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  ::selection {
+    background-color: var(--color-neon-magenta);
+    color: var(--color-void);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+    }
+  }
+}
+
+/* ------------------------------------------------------------------------- */
+/* Retro utilities                                                            */
+/* ------------------------------------------------------------------------- */
+@utility text-glitch {
+  text-shadow:
+    0.04em 0 0 color-mix(in oklab, var(--color-neon-magenta) 80%, transparent),
+    -0.04em 0 0 color-mix(in oklab, var(--color-neon-cyan) 80%, transparent);
+}
+
+@utility bg-grid {
+  background-image:
+    linear-gradient(to right, color-mix(in oklab, var(--color-line) 70%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in oklab, var(--color-line) 70%, transparent) 1px, transparent 1px);
+  background-size: 56px 56px;
+}
+
+/* A single decorative scanline sheet, painted once on the page shell. */
+.crt-scanlines::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  pointer-events: none;
+  opacity: 0.5;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.022) 0px,
+    rgba(255, 255, 255, 0.022) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .crt-scanlines::after {
+    opacity: 0.25;
+  }
 }

@@ -1,0 +1,58 @@
+import type { ReactNode } from "react";
+import { cn } from "@/lib/cn";
+
+type SectionProps = {
+  id?: string;
+  className?: string;
+  containerClassName?: string;
+  children: ReactNode;
+};
+
+export function Section({ id, className, containerClassName, children }: SectionProps) {
+  return (
+    <section id={id} className={cn("relative scroll-mt-24 py-16 sm:py-24", className)}>
+      <div className={cn("mx-auto w-full max-w-6xl px-5 sm:px-8", containerClassName)}>
+        {children}
+      </div>
+    </section>
+  );
+}
+
+type SectionHeadingProps = {
+  eyebrow?: string;
+  title: string;
+  lead?: string;
+  align?: "left" | "center";
+  as?: "h1" | "h2";
+};
+
+export function SectionHeading({
+  eyebrow,
+  title,
+  lead,
+  align = "left",
+  as: Tag = "h2",
+}: SectionHeadingProps) {
+  return (
+    <header className={cn("max-w-3xl", align === "center" && "mx-auto text-center")}>
+      {eyebrow ? (
+        <p className="font-display text-[0.625rem] uppercase tracking-[0.2em] text-neon-cyan">
+          {eyebrow}
+        </p>
+      ) : null}
+      <Tag
+        className={cn(
+          "mt-3 font-display uppercase leading-[1.35] text-balance",
+          Tag === "h1"
+            ? "text-2xl sm:text-4xl lg:text-5xl"
+            : "text-lg sm:text-2xl lg:text-3xl",
+        )}
+      >
+        {title}
+      </Tag>
+      {lead ? (
+        <p className="mt-5 text-base leading-relaxed text-muted sm:text-lg text-pretty">{lead}</p>
+      ) : null}
+    </header>
+  );
+}
