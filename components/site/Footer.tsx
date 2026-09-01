@@ -1,8 +1,8 @@
-import Image from "next/image";
 import Link from "next/link";
 import type { Dictionary, Locale } from "@/lib/i18n";
 import { route, SECTION_IDS, type RouteKey } from "@/lib/routes";
 import { LanguageToggle } from "./LanguageToggle";
+import { LOGO_SOURCES, ResponsiveImage } from "@/components/ui/ResponsiveImage";
 
 type FooterProps = {
   locale: Locale;
@@ -26,8 +26,9 @@ export function Footer({ locale, routeKey, dict }: FooterProps) {
     <footer className="border-t border-line bg-abyss">
       <div className="mx-auto grid w-full max-w-6xl gap-10 px-5 py-14 sm:px-8 md:grid-cols-3">
         <div>
-          <Image
-            src="/img/logo.png"
+          <ResponsiveImage
+            sources={LOGO_SOURCES}
+            sizes="194px"
             alt={dict.meta.siteName}
             width={1032}
             height={298}

@@ -1,7 +1,11 @@
-import Image from "next/image";
 import type { Dictionary, Locale } from "@/lib/i18n";
 import { route } from "@/lib/routes";
 import { ButtonLink } from "@/components/ui/Button";
+import {
+  BOX_ART_SOURCES,
+  INTERFACE_SOURCES,
+  ResponsiveImage,
+} from "@/components/ui/ResponsiveImage";
 
 type HeroProps = {
   locale: Locale;
@@ -72,13 +76,13 @@ export function Hero({ locale, dict }: HeroProps) {
         <div className="relative pb-16 sm:pb-20 lg:pb-0">
           {/* The real EmulationStation interface, framed like a CRT. */}
           <div className="relative overflow-hidden rounded-panel border border-line bg-panel p-2 shadow-neon-cyan">
-            <Image
-              src="/img/interface.webp"
+            <ResponsiveImage
+              sources={INTERFACE_SOURCES}
+              sizes="(max-width: 1024px) 100vw, 560px"
               alt={dict.hero.screenshotAlt}
               width={1600}
               height={892}
               priority
-              sizes="(max-width: 1024px) 100vw, 560px"
               className="h-auto w-full rounded-xl"
             />
             <span
@@ -88,12 +92,12 @@ export function Hero({ locale, dict }: HeroProps) {
           </div>
 
           {/* The retail box art, overlapping the frame. */}
-          <Image
-            src="/img/box-art.webp"
+          <ResponsiveImage
+            sources={BOX_ART_SOURCES}
+            sizes="(max-width: 640px) 112px, (max-width: 1024px) 144px, 176px"
             alt=""
             width={555}
             height={777}
-            sizes="(max-width: 640px) 40vw, 200px"
             className="animate-float absolute -bottom-2 right-2 w-28 drop-shadow-[0_16px_32px_rgba(0,0,0,0.7)] sm:w-36 lg:-bottom-12 lg:-right-6 lg:w-44"
           />
         </div>

@@ -182,6 +182,7 @@ export const ptBR = {
     ],
     shippingNote: "Compre e receba no conforto da sua casa!",
     paymentsLabel: "Formas de pagamento",
+    cta: "Ver HDs e pendrives à venda",
     contactCta: "Falar com as vendas",
   },
 

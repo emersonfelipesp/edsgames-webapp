@@ -1,13 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
+import { INTERFACE_SOURCES, ResponsiveImage } from "@/components/ui/ResponsiveImage";
 
 type VideoFacadeProps = {
   videoId: string;
   label: string;
   playLabel: string;
-  poster: string;
 };
 
 /**
@@ -15,7 +14,7 @@ type VideoFacadeProps = {
  * the visitor actually asks for the video, so the page loads no third-party
  * script and sets no third-party cookie by default.
  */
-export function VideoFacade({ videoId, label, playLabel, poster }: VideoFacadeProps) {
+export function VideoFacade({ videoId, label, playLabel }: VideoFacadeProps) {
   const [active, setActive] = useState(false);
 
   if (active) {
@@ -40,8 +39,9 @@ export function VideoFacade({ videoId, label, playLabel, poster }: VideoFacadePr
       aria-label={playLabel}
       className="group relative block aspect-video w-full overflow-hidden rounded-panel border border-line bg-black"
     >
-      <Image
-        src={poster}
+      <ResponsiveImage
+        sources={INTERFACE_SOURCES}
+        sizes="(max-width: 896px) 100vw, 896px"
         alt=""
         width={1600}
         height={892}

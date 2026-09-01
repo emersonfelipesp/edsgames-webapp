@@ -79,8 +79,10 @@ export function Store({ locale, dict, compact = false }: StoreProps) {
             <p className="font-display font-semibold text-sm uppercase leading-relaxed text-neon-lime">
               {dict.store.shippingNote}
             </p>
+            {/* Descriptive on its own: "Learn more" tells a screen-reader user
+                cycling through links nothing about where it goes. */}
             <ButtonLink href={route(locale, "store")} size="lg">
-              {dict.actions.learnMore}
+              {dict.store.cta}
             </ButtonLink>
           </div>
 
