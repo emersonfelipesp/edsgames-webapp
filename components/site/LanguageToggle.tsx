@@ -34,7 +34,7 @@ export function LanguageToggle({ locale, routeKey, dict, className }: LanguageTo
           unprefixed display utilities, which resolve by stylesheet order. */}
       <span
         aria-current="true"
-        className="hidden min-h-11 min-w-11 place-items-center rounded-md bg-neon-cyan/15 px-2.5 font-display text-[0.625rem] leading-none text-neon-cyan sm:grid"
+        className="hidden min-h-11 min-w-11 place-items-center rounded-md bg-neon-cyan/15 px-2.5 font-display text-[0.75rem] leading-none text-neon-cyan sm:grid"
       >
         {dict.localeShort}
       </span>
@@ -42,7 +42,7 @@ export function LanguageToggle({ locale, routeKey, dict, className }: LanguageTo
         href={route(other, routeKey)}
         hrefLang={other}
         lang={other}
-        className="grid min-h-11 min-w-11 place-items-center rounded-md px-2.5 font-display text-[0.625rem] leading-none text-muted transition-colors hover:text-ink"
+        className="grid min-h-11 min-w-11 place-items-center rounded-md px-2.5 font-display text-[0.75rem] leading-none text-muted transition-colors hover:text-ink"
       >
         <span className="sr-only">{dict.otherLocaleName}</span>
         <span aria-hidden="true">{dict.otherLocaleShort}</span>

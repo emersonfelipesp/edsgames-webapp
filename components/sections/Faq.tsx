@@ -22,7 +22,7 @@ export function Faq({ dict }: FaqProps) {
       <div className="mx-auto mt-12 max-w-3xl divide-y divide-line rounded-panel border border-line bg-panel/60">
         {dict.faq.items.map((item) => (
           <details key={item.question} className="group px-5 py-2 sm:px-7">
-            <summary className="flex min-h-14 cursor-pointer list-none items-center justify-between gap-4 py-2 font-display text-[0.6875rem] uppercase leading-relaxed text-ink">
+            <summary className="flex min-h-14 cursor-pointer list-none items-center justify-between gap-4 py-2 font-display text-[0.8125rem] uppercase leading-relaxed text-ink">
               {item.question}
               <span
                 aria-hidden="true"
@@ -31,7 +31,7 @@ export function Faq({ dict }: FaqProps) {
                 +
               </span>
             </summary>
-            <p className="pb-5 pr-10 text-sm leading-relaxed text-muted">{item.answer}</p>
+            <p className="pb-5 pr-10 text-base leading-relaxed text-muted">{item.answer}</p>
           </details>
         ))}
       </div>

@@ -18,7 +18,7 @@ export function PageShell({ locale, routeKey, dict, children }: PageShellProps) 
       <ThemeColorSync />
       <a
         href="#main"
-        className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[70] focus:inline-flex focus:min-h-11 focus:items-center focus:rounded-lg focus:bg-accent focus:px-4 focus:font-display focus:text-xs focus:uppercase focus:text-on-accent"
+        className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[70] focus:inline-flex focus:min-h-11 focus:items-center focus:rounded-lg focus:bg-accent focus:px-4 focus:font-display focus:text-sm focus:uppercase focus:text-on-accent"
       >
         {dict.nav.skipToContent}
       </a>

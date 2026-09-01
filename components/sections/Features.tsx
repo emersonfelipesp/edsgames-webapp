@@ -2,7 +2,7 @@ import type { Dictionary } from "@/lib/i18n";
 import { SECTION_IDS } from "@/lib/routes";
 import { Section, SectionHeading } from "@/components/ui/Section";
 import { Panel } from "@/components/ui/Panel";
-import { LazyScene } from "@/components/three/LazyScene";
+import { RetroClip } from "@/components/media/RetroClip";
 
 type FeaturesProps = {
   dict: Dictionary;
@@ -31,7 +31,7 @@ export function Features({ dict }: FeaturesProps) {
     <Section id={SECTION_IDS.features}>
       <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.8fr)] lg:items-center">
         <SectionHeading eyebrow={dict.features.eyebrow} title={dict.features.title} />
-        <LazyScene variant="character" className="lg:h-72" />
+        <RetroClip clip="platformer" className="lg:h-72" />
       </div>
 
       <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
@@ -45,10 +45,10 @@ export function Features({ dict }: FeaturesProps) {
             >
               <path d={ICONS[index % ICONS.length]} />
             </svg>
-            <h3 className="mt-5 font-display text-[0.6875rem] font-bold uppercase leading-relaxed">
+            <h3 className="mt-5 font-display text-[0.8125rem] font-bold uppercase leading-relaxed">
               {item.title}
             </h3>
-            <p className="mt-3 text-sm leading-relaxed text-muted">{item.description}</p>
+            <p className="mt-3 text-base leading-relaxed text-muted">{item.description}</p>
           </Panel>
         ))}
       </div>

@@ -20,12 +20,12 @@ export function StorePage({ locale }: { locale: Locale }) {
       <Section>
         <div className="grid gap-6 lg:grid-cols-2">
           <Panel>
-            <h2 className="font-display text-[0.6875rem] font-bold uppercase leading-relaxed text-neon-cyan">
+            <h2 className="font-display text-[0.8125rem] font-bold uppercase leading-relaxed text-neon-cyan">
               {page.includedTitle}
             </h2>
             <ul className="mt-5 space-y-3">
               {page.included.map((item) => (
-                <li key={item} className="flex gap-3 text-sm leading-relaxed text-muted">
+                <li key={item} className="flex gap-3 text-base leading-relaxed text-muted">
                   <span aria-hidden="true" className="mt-1.5 size-1.5 shrink-0 rounded-full bg-neon-lime" />
                   {item}
                 </li>
@@ -33,7 +33,7 @@ export function StorePage({ locale }: { locale: Locale }) {
             </ul>
           </Panel>
           <Panel>
-            <h2 className="font-display text-[0.6875rem] font-bold uppercase leading-relaxed text-neon-cyan">
+            <h2 className="font-display text-[0.8125rem] font-bold uppercase leading-relaxed text-neon-cyan">
               {page.howToOrderTitle}
             </h2>
             <ol className="mt-5 space-y-4">
@@ -41,11 +41,11 @@ export function StorePage({ locale }: { locale: Locale }) {
                 <li key={item} className="flex gap-4">
                   <span
                     aria-hidden="true"
-                    className="grid size-8 shrink-0 place-items-center rounded-lg bg-neon-amber/10 font-display text-[0.625rem] text-neon-amber"
+                    className="grid size-8 shrink-0 place-items-center rounded-lg bg-neon-amber/10 font-display text-[0.75rem] text-neon-amber"
                   >
                     {index + 1}
                   </span>
-                  <span className="text-sm leading-relaxed text-muted">{item}</span>
+                  <span className="text-base leading-relaxed text-muted">{item}</span>
                 </li>
               ))}
             </ol>
@@ -53,10 +53,10 @@ export function StorePage({ locale }: { locale: Locale }) {
         </div>
 
         <Panel className="mt-6 border-neon-amber/30 bg-neon-amber/5">
-          <h2 className="font-display text-[0.6875rem] font-bold uppercase leading-relaxed text-neon-amber">
+          <h2 className="font-display text-[0.8125rem] font-bold uppercase leading-relaxed text-neon-amber">
             {page.disclaimerTitle}
           </h2>
-          <p className="mt-4 text-sm leading-relaxed text-muted">{page.disclaimerBody}</p>
+          <p className="mt-4 text-base leading-relaxed text-muted">{page.disclaimerBody}</p>
         </Panel>
       </Section>
 

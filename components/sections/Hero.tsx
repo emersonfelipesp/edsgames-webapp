@@ -30,20 +30,20 @@ export function Hero({ locale, dict }: HeroProps) {
 
       <div className="relative mx-auto grid w-full max-w-6xl gap-12 px-5 py-16 sm:px-8 sm:py-24 lg:grid-cols-2 lg:items-center lg:gap-8">
         <div>
-          <p className="inline-flex items-center gap-2 rounded-full border border-neon-lime/40 bg-neon-lime/10 px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.2em] text-neon-lime">
+          <p className="inline-flex items-center gap-2 rounded-full border border-neon-lime/40 bg-neon-lime/10 px-3 py-1.5 text-sm font-semibold uppercase tracking-[0.2em] text-neon-lime">
             <span aria-hidden="true" className="size-1.5 rounded-full bg-neon-lime animate-blink" />
             {dict.hero.badge}
           </p>
 
-          <h1 className="text-glitch mt-6 font-display text-[1.75rem] font-bold uppercase leading-[1.25] text-balance sm:text-5xl lg:text-[3.75rem] lg:leading-[1.15]">
+          <h1 className="text-glitch mt-6 font-display text-[2rem] font-bold uppercase leading-[1.25] text-balance sm:text-6xl lg:text-[4.25rem] lg:leading-[1.15]">
             {dict.hero.title}
           </h1>
 
-          <p className="mt-6 text-base font-semibold uppercase leading-relaxed tracking-wide text-neon-cyan sm:text-lg">
+          <p className="mt-6 text-lg font-semibold uppercase leading-relaxed tracking-wide text-neon-cyan sm:text-xl">
             {dict.hero.subtitle}
           </p>
 
-          <p className="mt-4 max-w-xl text-base leading-relaxed text-muted sm:text-lg text-pretty">
+          <p className="mt-4 max-w-xl text-lg leading-relaxed text-muted sm:text-xl text-pretty">
             {dict.hero.lead}
           </p>
 
@@ -61,10 +61,10 @@ export function Hero({ locale, dict }: HeroProps) {
               <div key={stat.label}>
                 <dt className="sr-only">{stat.label}</dt>
                 <dd>
-                  <span className="block font-display text-xl font-bold text-neon-amber sm:text-3xl">
+                  <span className="block font-display text-2xl font-bold text-neon-amber sm:text-4xl">
                     {stat.value}
                   </span>
-                  <span className="mt-2 block text-xs leading-snug text-faint sm:text-sm">
+                  <span className="mt-2 block text-sm leading-snug text-faint sm:text-base">
                     {stat.label}
                   </span>
                 </dd>

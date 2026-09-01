@@ -21,11 +21,11 @@ export function Requirements({ dict }: RequirementsProps) {
           >
             <span
               aria-hidden="true"
-              className="grid size-8 shrink-0 place-items-center rounded-lg bg-neon-magenta/10 font-display text-[0.625rem] text-neon-magenta"
+              className="grid size-8 shrink-0 place-items-center rounded-lg bg-neon-magenta/10 font-display text-[0.75rem] text-neon-magenta"
             >
               {String(index + 1).padStart(2, "0")}
             </span>
-            <span className="text-sm leading-relaxed text-muted">{item}</span>
+            <span className="text-base leading-relaxed text-muted">{item}</span>
           </li>
         ))}
       </ul>

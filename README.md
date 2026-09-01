@@ -21,7 +21,7 @@ underneath it.
 - [Project structure](#project-structure)
 - [Editing the copy](#editing-the-copy)
 - [The PIX payload](#the-pix-payload)
-- [Three.js scenes](#threejs-scenes)
+- [Pixel-art clips](#pixel-art-clips)
 - [Security](#security)
 - [Accessibility](#accessibility)
 - [Deployment](#deployment)
@@ -39,7 +39,7 @@ underneath it.
 | Third-party requests | 7 CDNs, Meta Pixel, Mailchimp, a YouTube embed on load | None. Fonts and images are self-hosted; YouTube loads only on click |
 | Images | ~2.5 MB of Blogger-hosted PNG, hotlinked | ~400 KB of WebP, committed to the repository |
 | Sales page | `/p/vendas.html` is empty | A real store page built from the homepage sales copy |
-| 3D | None | Four procedural Three.js scenes, code-split and capability-gated |
+| Motion | None | Four generated pixel-art loops, lazily loaded and capability-gated |
 
 The content itself is unchanged in substance. Obvious typographic errors in the
 Portuguese source were corrected; nothing was added, softened or invented.
@@ -58,8 +58,9 @@ Portuguese source were corrected; nothing was added, softened or invented.
   in `app/globals.css` under `@theme`. No component carries an ad-hoc colour.
 - **`next/font`.** Fonts are downloaded at build time and served from our own
   origin. A visitor's browser never contacts a font CDN. See [Type](#type).
-- **React Three Fiber and drei.** Only for the decorative scenes, always
-  code-split, never in the initial payload.
+- **No runtime dependencies beyond React and Next.** The animated scenes are
+  pre-rendered video, not a WebGL runtime, so `package.json` lists exactly three
+  production dependencies.
 
 ## Type
 
@@ -161,8 +162,8 @@ app/
 components/
   pages/           one component per page, taking a `locale`
   sections/        the page sections, all server components
+  media/           the looping pixel-art clip player
   site/            header, footer, page shell, language and theme toggles
-  three/           models, scenes, canvas stage, lazy loader
   ui/              button, panel, section, PIX copy button
 
 lib/
@@ -174,7 +175,11 @@ lib/
   fonts.ts  metadata.ts  cn.ts
   hooks/           reduced motion, in-view, device-capability
 
+tools/
+  pixel-clips/     the generator for everything in public/video
+
 public/
+  video/           the generated clips, as WebM, MP4 and poster
   theme-init.js    applies a stored theme before first paint
   _headers         security headers for Netlify and Cloudflare Pages
   img/             every image, vendored from the original site
@@ -229,27 +234,42 @@ For the same reason `public/img/pix-qrcode.png` is the original file from the
 live site, committed byte for byte. It is never regenerated, resized or
 re-encoded.
 
-## Three.js scenes
+## Pixel-art clips
 
-Four models — a console, a cartridge, a gamepad and a voxel character — are
-built from primitives in `components/three/models/`. Nothing is loaded from a
-`.glb` or `.gltf`, so there is no third-party model licence to track and the
-scenes take their colours from the site palette in `components/three/palette.ts`.
+Four looping animations run through the site: a checkerboard-hill speed stage, a
+brick-and-warp-pipe plains stage under a castle, a desert firefight around a
+tracked vehicle, and a starfield shooter.
 
-Everything goes through `components/three/LazyScene.tsx`, which:
+They are **generated, not filmed**. `tools/pixel-clips/` draws every frame from
+primitives at 320×180 — close to the real Genesis and Neo Geo working
+resolutions — and upscales with nearest-neighbour, which is what produces the
+chunky-pixel look. See that directory's README to regenerate or extend them.
 
-- code-splits each scene behind `next/dynamic` with `ssr: false`, keeping the
-  Three.js runtime out of the initial payload of every route;
-- mounts a scene only once it has come near the viewport;
-- then **pauses** rather than unmounting when it scrolls away, because tearing
-  the canvas down drops and re-creates a WebGL context on every pass;
-- skips the bundle entirely — about 237 KB compressed — for visitors on Data
-  Saver, on a 2G or 3G connection, or on a device reporting under 2 GB of
-  memory;
-- renders a single still frame under `prefers-reduced-motion`;
-- marks every canvas `aria-hidden`, because they are decoration.
+The scenes deliberately reproduce the **level design language** of those eras,
+because that furniture is what makes a stage recognisable in the first half
+second: loops, palms and spinning rings; question blocks over green pipes with a
+castle on the horizon; sandbags, oil drums and a boxy tracked vehicle. What is
+deliberately *not* reproduced is any protagonist. The characters are original
+sprites drawn in that file, and no logo, title screen or level layout is copied
+from a real game. Embedding actual Sonic, Mario or Metal Slug footage would put
+SEGA, Nintendo and SNK material on a site that also sells hardware.
 
-Phones additionally render at a lower pixel ratio and skip shadow maps.
+Playback goes through `components/media/RetroClip.tsx`, which:
+
+- fetches nothing until a clip approaches the viewport;
+- then **pauses** rather than unmounting when it scrolls away, so scrolling back
+  does not re-fetch;
+- serves WebM with an MP4 fallback, so a browser downloads exactly one file per
+  clip — roughly 60–120 KB;
+- shows the poster frame alone, and requests no video at all, under
+  `prefers-reduced-motion`, on Data Saver, on a 2G or 3G connection, or on a
+  device reporting under 2 GB of memory;
+- marks every clip `aria-hidden`, because they are decoration.
+
+Every loop is seamless, and that is a constraint rather than a nicety: a layer
+only loops if it advances a whole number of its own tile periods per cycle,
+which is what `scroll_off()` in `scenes.py` enforces. `render.py` is checked by
+comparing frame `N` against frame `0`.
 
 ## Security
 
@@ -285,9 +305,9 @@ how to tighten this to script hashes at the header level.
   node in the rendered page and computing the ratio against its composited
   background. This is the easiest thing to break here: if you add a colour,
   check it in light *and* dark.
-- `prefers-reduced-motion` is respected by the CSS and by every 3D scene, and
+- `prefers-reduced-motion` is respected by the CSS and by every clip, and
   `prefers-color-scheme` selects the theme when the visitor has not chosen one.
-- Decorative images have empty `alt`; decorative canvases are `aria-hidden`.
+- Decorative images have empty `alt`; the clips are `aria-hidden`.
 
 ## Deployment
 

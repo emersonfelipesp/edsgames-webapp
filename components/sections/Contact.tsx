@@ -19,19 +19,19 @@ export function Contact({ dict }: ContactProps) {
         />
         <dl className="mt-8 grid gap-6 sm:grid-cols-2">
           <div>
-            <dt className="font-display text-[0.625rem] uppercase tracking-[0.2em] text-neon-cyan">
+            <dt className="font-display text-[0.75rem] uppercase tracking-[0.2em] text-neon-cyan">
               {dict.contact.hoursLabel}
             </dt>
-            <dd className="mt-3 text-sm text-muted">{dict.contact.hours}</dd>
+            <dd className="mt-3 text-base text-muted">{dict.contact.hours}</dd>
           </div>
           <div>
-            <dt className="font-display text-[0.625rem] uppercase tracking-[0.2em] text-neon-cyan">
+            <dt className="font-display text-[0.75rem] uppercase tracking-[0.2em] text-neon-cyan">
               {dict.contact.emailLabel}
             </dt>
             <dd className="mt-3">
               <a
                 href={`mailto:${dict.contact.email}`}
-                className="inline-flex min-h-11 items-center text-sm text-ink underline decoration-neon-cyan/60 underline-offset-4 transition-colors hover:text-neon-cyan"
+                className="inline-flex min-h-11 items-center text-base text-ink underline decoration-neon-cyan/60 underline-offset-4 transition-colors hover:text-neon-cyan"
               >
                 {dict.contact.email}
               </a>
