@@ -3,7 +3,7 @@ import { PageShell } from "@/components/site/PageShell";
 import { Section, SectionHeading } from "@/components/ui/Section";
 import { Panel } from "@/components/ui/Panel";
 import { ButtonLink } from "@/components/ui/Button";
-import { RetroClip } from "@/components/media/RetroClip";
+import { GameShots } from "@/components/media/GameShots";
 import { DownloadIntegrity } from "@/components/sections/DownloadIntegrity";
 
 export function DownloadPage({ locale }: { locale: Locale }) {
@@ -80,7 +80,7 @@ export function DownloadPage({ locale }: { locale: Locale }) {
 
       <Section className="bg-abyss">
         <SectionHeading title={page.downloadsTitle} lead={page.downloadsNote} />
-        <RetroClip clip="shooter" className="mt-8 h-44 sm:h-52 lg:h-56" />
+        <GameShots set="arcade" className="mt-8 sm:grid-cols-3" />
         <div className="mt-6 grid gap-4 sm:grid-cols-2">
           {page.downloads.map((item) => (
             <Panel key={item.name} interactive className="flex flex-col gap-5">

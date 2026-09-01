@@ -2,7 +2,7 @@ import type { Dictionary } from "@/lib/i18n";
 import { SECTION_IDS } from "@/lib/routes";
 import { Section, SectionHeading } from "@/components/ui/Section";
 import { Panel } from "@/components/ui/Panel";
-import { RetroClip } from "@/components/media/RetroClip";
+import { GameShots } from "@/components/media/GameShots";
 
 type AboutProps = {
   dict: Dictionary;
@@ -33,7 +33,7 @@ export function About({ dict }: AboutProps) {
         </div>
 
         <div className="grid content-start gap-6">
-          <RetroClip clip="hillside" />
+          <GameShots set="sixteenBit" />
           {dict.about.systems.map((system, index) => (
             <Panel key={system.name} interactive>
               <p

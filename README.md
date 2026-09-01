@@ -21,7 +21,7 @@ underneath it.
 - [Project structure](#project-structure)
 - [Editing the copy](#editing-the-copy)
 - [The PIX payload](#the-pix-payload)
-- [Pixel-art clips](#pixel-art-clips)
+- [Game screenshots](#game-screenshots)
 - [Security](#security)
 - [Accessibility](#accessibility)
 - [Deployment](#deployment)
@@ -37,9 +37,9 @@ underneath it.
 | Languages | Brazilian Portuguese only | Brazilian Portuguese and English, both statically generated |
 | Themes | One, light | Light and dark, following the operating system by default, with a toggle |
 | Third-party requests | 7 CDNs, Meta Pixel, Mailchimp, a YouTube embed on load | None. Fonts and images are self-hosted; YouTube loads only on click |
-| Images | ~2.5 MB of Blogger-hosted PNG, hotlinked | ~400 KB of WebP, committed to the repository |
+| Images | ~2.5 MB of Blogger-hosted PNG, hotlinked | ~700 KB of WebP, committed to the repository |
 | Sales page | `/p/vendas.html` is empty | A real store page built from the homepage sales copy |
-| Motion | None | Four generated pixel-art loops, lazily loaded and capability-gated |
+| Artwork | One interface capture | Eighteen game screenshots at native resolution, across six systems, lazily loaded |
 
 The content itself is unchanged in substance. Obvious typographic errors in the
 Portuguese source were corrected; nothing was added, softened or invented.
@@ -58,9 +58,10 @@ Portuguese source were corrected; nothing was added, softened or invented.
   in `app/globals.css` under `@theme`. No component carries an ad-hoc colour.
 - **`next/font`.** Fonts are downloaded at build time and served from our own
   origin. A visitor's browser never contacts a font CDN. See [Type](#type).
-- **No runtime dependencies beyond React and Next.** The animated scenes are
-  pre-rendered video, not a WebGL runtime, so `package.json` lists exactly three
-  production dependencies.
+- **No runtime dependencies beyond React and Next.** Every section is server
+  rendered and the artwork is plain `<img>`, so there is no WebGL runtime, no
+  player and no motion library: `package.json` lists exactly three production
+  dependencies.
 
 ## Type
 
@@ -169,7 +170,7 @@ app/
 components/
   pages/           one component per page, taking a `locale`
   sections/        the page sections, all server components
-  media/           the looping pixel-art clip player
+  media/           the game-screenshot grid and the YouTube facade
   site/            header, footer, page shell, language and theme toggles
   ui/              button, panel, section, PIX copy button
 
@@ -181,15 +182,11 @@ lib/
   theme.ts         theme preference store and the resolved-theme hook
   theme-init-script.ts  the inline pre-paint theme bootstrap
   fonts.ts  metadata.ts  cn.ts
-  hooks/           reduced motion, in-view, device-capability
-
-tools/
-  pixel-clips/     the generator for everything in public/video
 
 public/
-  video/           the generated clips, as WebM, MP4 and poster
   _headers         security and caching headers for Netlify / Cloudflare Pages
   img/             every image, vendored from the original site
+    games/         the game screenshots, at each system's native resolution
 ```
 
 Two details worth knowing before you move things around:
@@ -241,42 +238,43 @@ For the same reason `public/img/pix-qrcode.png` is the original file from the
 live site, committed byte for byte. It is never regenerated, resized or
 re-encoded.
 
-## Pixel-art clips
+## Game screenshots
 
-Four looping animations run through the site: a checkerboard-hill speed stage, a
-brick-and-warp-pipe plains stage under a castle, a desert firefight around a
-tracked vehicle, and a starfield shooter.
+Four grids of screenshots run through the site: the 16-bit consoles on the home
+page, the 32- and 64-bit generation beside the feature grid, the disc era in the
+store, and a wider arcade-and-cartridge spread on the download page. Eighteen
+images in total, in `public/img/games/`.
 
-They are **generated, not filmed**. `tools/pixel-clips/` draws every frame from
-primitives at 320×180 — close to the real Genesis and Neo Geo working
-resolutions — and upscales with nearest-neighbour, which is what produces the
-chunky-pixel look. See that directory's README to regenerate or extend them.
+They are **real frames from the games the product actually runs** — Mega Drive,
+Super Nintendo, Neo Geo, Nintendo 64, PlayStation and Dreamcast — captured at
+each system's native resolution. A Mega Drive frame is 320x224 and stays 320x224
+in the repository; the browser upscales it with `image-rendering: pixelated`, so
+nothing is smoothed and a 224-line frame still reads as one. Sources with a flat
+palette are stored as lossless WebP, the 3D-era frames as quality-90 lossy, and
+the whole set is about 310 KB.
 
-The scenes deliberately reproduce the **level design language** of those eras,
-because that furniture is what makes a stage recognisable in the first half
-second: loops, palms and spinning rings; question blocks over green pipes with a
-castle on the horizon; sandbags, oil drums and a boxy tracked vehicle. What is
-deliberately *not* reproduced is any protagonist. The characters are original
-sprites drawn in that file, and no logo, title screen or level layout is copied
-from a real game. Embedding actual Sonic, Mario or Metal Slug footage would put
-SEGA, Nintendo and SNK material on a site that also sells hardware.
+An earlier revision drew these scenes from primitives instead, to keep publisher
+artwork off a site that also sells hardware. That trade was reversed
+deliberately: hand-drawn approximations of Sonic and Metal Slug read as
+amateurish next to the product they are selling, and the screenshots are the
+product. If a rights holder objects, the fix is to replace the file in
+`public/img/games/` — no code changes, because the component only knows paths
+and intrinsic sizes.
 
-Playback goes through `components/media/RetroClip.tsx`, which:
+Display goes through `components/media/GameShots.tsx`, which:
 
-- fetches nothing until a clip approaches the viewport;
-- then **pauses** rather than unmounting when it scrolls away, so scrolling back
-  does not re-fetch;
-- serves WebM with an MP4 fallback, so a browser downloads exactly one file per
-  clip — roughly 60–120 KB;
-- shows the poster frame alone, and requests no video at all, under
-  `prefers-reduced-motion`, on Data Saver, on a 2G or 3G connection, or on a
-  device reporting under 2 GB of memory;
-- marks every clip `aria-hidden`, because they are decoration.
+- is a **server component**, because a static image needs no browser API: there
+  is no player, no capability gate and no motion to negotiate;
+- reserves each tile's space from the intrinsic width and height, so nothing
+  shifts as the files arrive;
+- lazily loads every tile and decodes it asynchronously;
+- crops to a 4:3 tile with `object-cover`, which is within a few percent of every
+  source's native aspect;
+- marks the whole grid `aria-hidden` with empty `alt`, because the surrounding
+  copy already says what the library contains.
 
-Every loop is seamless, and that is a constraint rather than a nicety: a layer
-only loops if it advances a whole number of its own tile periods per cycle,
-which is what `scroll_off()` in `scenes.py` enforces. `render.py` is checked by
-comparing frame `N` against frame `0`.
+Adding a screenshot means dropping the WebP into `public/img/games/` and adding
+its path and intrinsic size to a set in that component.
 
 ## Publishing download checksums
 
@@ -336,9 +334,9 @@ how to tighten this to script hashes at the header level.
   node in the rendered page and computing the ratio against its composited
   background. This is the easiest thing to break here: if you add a colour,
   check it in light *and* dark.
-- `prefers-reduced-motion` is respected by the CSS and by every clip, and
-  `prefers-color-scheme` selects the theme when the visitor has not chosen one.
-- Decorative images have empty `alt`; the clips are `aria-hidden`.
+- `prefers-reduced-motion` is respected by the CSS, and `prefers-color-scheme`
+  selects the theme when the visitor has not chosen one.
+- Decorative images have empty `alt`; the screenshot grids are `aria-hidden`.
 
 ## Deployment
 

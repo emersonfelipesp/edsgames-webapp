@@ -2,7 +2,7 @@ import type { Dictionary } from "@/lib/i18n";
 import { SECTION_IDS } from "@/lib/routes";
 import { Section, SectionHeading } from "@/components/ui/Section";
 import { Panel } from "@/components/ui/Panel";
-import { RetroClip } from "@/components/media/RetroClip";
+import { GameShots } from "@/components/media/GameShots";
 
 type FeaturesProps = {
   dict: Dictionary;
@@ -31,7 +31,7 @@ export function Features({ dict }: FeaturesProps) {
     <Section id={SECTION_IDS.features}>
       <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.8fr)] lg:items-center">
         <SectionHeading eyebrow={dict.features.eyebrow} title={dict.features.title} />
-        <RetroClip clip="platformer" className="lg:h-72" />
+        <GameShots set="classics" />
       </div>
 
       <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">

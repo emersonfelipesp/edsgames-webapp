@@ -3,7 +3,7 @@ import { route, SECTION_IDS } from "@/lib/routes";
 import { Section, SectionHeading } from "@/components/ui/Section";
 import { Panel } from "@/components/ui/Panel";
 import { ButtonLink } from "@/components/ui/Button";
-import { RetroClip } from "@/components/media/RetroClip";
+import { GameShots } from "@/components/media/GameShots";
 
 type StoreProps = {
   locale: Locale;
@@ -86,7 +86,7 @@ export function Store({ locale, dict, compact = false }: StoreProps) {
           </div>
 
           <div className="grid gap-6">
-            <RetroClip clip="rungun" className="h-48 sm:h-56 lg:h-56" />
+            <GameShots set="discEra" />
             <div className="rounded-panel border border-line bg-panel p-6">
             <p className="font-display text-[0.75rem] uppercase tracking-[0.2em] text-faint">
               {dict.store.paymentsLabel}
