@@ -16,7 +16,7 @@ export function PageShell({ locale, routeKey, dict, children }: PageShellProps) 
     <div className="crt-scanlines flex min-h-dvh flex-col">
       <a
         href="#main"
-        className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[70] focus:rounded-lg focus:bg-neon-amber focus:px-4 focus:py-3 focus:font-display font-semibold focus:text-xs focus:uppercase focus:text-void"
+        className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[70] focus:inline-flex focus:min-h-11 focus:items-center focus:rounded-lg focus:bg-neon-amber focus:px-4 focus:font-display font-semibold focus:text-xs focus:uppercase focus:text-void"
       >
         {dict.nav.skipToContent}
       </a>

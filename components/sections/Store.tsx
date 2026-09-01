@@ -16,7 +16,11 @@ type StoreProps = {
 export function Store({ locale, dict, compact = false }: StoreProps) {
   return (
     <Section id={SECTION_IDS.store} className="bg-abyss">
-      {compact ? null : (
+      {compact ? (
+        // The store page already carries the page title as its `h1`; this keeps
+        // the product list from jumping straight from `h1` to `h3`.
+        <h2 className="sr-only">{dict.store.title}</h2>
+      ) : (
         <SectionHeading
           eyebrow={dict.store.eyebrow}
           title={dict.store.title}

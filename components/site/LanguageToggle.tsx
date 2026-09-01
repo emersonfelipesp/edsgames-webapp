@@ -29,7 +29,7 @@ export function LanguageToggle({ locale, routeKey, dict, className }: LanguageTo
     >
       <span
         aria-current="true"
-        className="rounded-md bg-neon-cyan/15 px-2.5 py-1.5 font-display text-xs font-bold leading-none text-neon-cyan"
+        className="grid min-h-11 min-w-11 place-items-center rounded-md bg-neon-cyan/15 px-2.5 font-display text-xs font-bold leading-none text-neon-cyan"
       >
         {dict.localeShort}
       </span>
@@ -37,7 +37,7 @@ export function LanguageToggle({ locale, routeKey, dict, className }: LanguageTo
         href={route(other, routeKey)}
         hrefLang={other}
         lang={other}
-        className="rounded-md px-2.5 py-1.5 font-display text-xs font-bold leading-none text-muted transition-colors hover:text-ink"
+        className="grid min-h-11 min-w-11 place-items-center rounded-md px-2.5 font-display text-xs font-bold leading-none text-muted transition-colors hover:text-ink"
       >
         <span className="sr-only">{dict.otherLocaleName}</span>
         <span aria-hidden="true">{dict.otherLocaleShort}</span>

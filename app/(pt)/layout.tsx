@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { getDictionary } from "@/lib/i18n";
 import { fontVariables } from "@/lib/fonts";
 import { buildMetadata } from "@/lib/metadata";
+import { CONTENT_SECURITY_POLICY } from "@/lib/csp";
 import "../globals.css";
 
 const dict = getDictionary("pt-BR");
@@ -21,6 +22,10 @@ export const viewport: Viewport = {
 export default function PtLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="pt-BR" className={fontVariables}>
+      <head>
+        <meta httpEquiv="Content-Security-Policy" content={CONTENT_SECURITY_POLICY} />
+        <meta name="referrer" content="strict-origin-when-cross-origin" />
+      </head>
       <body className="antialiased">{children}</body>
     </html>
   );

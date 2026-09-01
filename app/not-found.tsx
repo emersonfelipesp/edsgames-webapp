@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { getDictionary } from "@/lib/i18n";
 import { fontVariables } from "@/lib/fonts";
+import { CONTENT_SECURITY_POLICY } from "@/lib/csp";
 import "./globals.css";
 
 const dict = getDictionary("pt-BR");
@@ -14,6 +15,10 @@ const enDict = getDictionary("en");
 export default function NotFound() {
   return (
     <html lang="pt-BR" className={fontVariables}>
+      <head>
+        <meta httpEquiv="Content-Security-Policy" content={CONTENT_SECURITY_POLICY} />
+        <meta name="referrer" content="strict-origin-when-cross-origin" />
+      </head>
       <body className="antialiased">
         <main className="grid min-h-dvh place-items-center px-5 py-20 text-center">
           <div>
