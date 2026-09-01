@@ -20,7 +20,7 @@ export function Testimonials({ dict }: TestimonialsProps) {
           <li key={item.name}>
             <Panel className="flex h-full flex-col">
               <figure className="flex h-full flex-col">
-              <blockquote className="flex-1 text-sm leading-relaxed text-ink sm:text-base">
+              <blockquote className="flex-1 text-base leading-relaxed text-ink sm:text-lg">
                 <span aria-hidden="true" className="mr-1 text-neon-magenta">
                   &ldquo;
                 </span>
@@ -38,10 +38,10 @@ export function Testimonials({ dict }: TestimonialsProps) {
                   className="size-11 rounded-full border border-line object-cover"
                 />
                 <span>
-                  <span className="block font-display text-[0.625rem] uppercase leading-relaxed">
+                  <span className="block font-display text-[0.75rem] uppercase leading-relaxed">
                     {item.name}
                   </span>
-                  <span className="mt-1 block text-xs text-faint">{item.role}</span>
+                  <span className="mt-1 block text-sm text-faint">{item.role}</span>
                 </span>
               </figcaption>
               </figure>

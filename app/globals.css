@@ -201,6 +201,11 @@
     -0.04em 0 0 color-mix(in oklab, var(--color-neon-cyan) 80%, transparent);
 }
 
+/* Pixel art must scale with hard edges; smoothing it defeats the art. */
+@utility pixelated {
+  image-rendering: pixelated;
+}
+
 @utility bg-grid {
   background-image:
     linear-gradient(to right, color-mix(in oklab, var(--color-line) 70%, transparent) 1px, transparent 1px),

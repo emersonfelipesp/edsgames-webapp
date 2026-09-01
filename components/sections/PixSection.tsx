@@ -47,7 +47,7 @@ export function PixSection({ dict, withHeading = true }: PixSectionProps) {
             failedLabel={pix.copyFailed}
             keyLabel={pix.keyLabel}
           />
-          <dl className="w-full border-t border-line pt-5 text-left text-sm">
+          <dl className="w-full border-t border-line pt-5 text-left text-base">
             <div className="flex flex-wrap justify-between gap-2">
               <dt className="text-faint">{pix.receiverLabel}</dt>
               <dd className="font-mono text-muted">{PIX_RECEIVER}</dd>
@@ -61,7 +61,7 @@ export function PixSection({ dict, withHeading = true }: PixSectionProps) {
 
         <div className="grid gap-6">
           <Panel>
-            <h3 className="font-display text-[0.6875rem] font-bold uppercase leading-relaxed text-neon-cyan">
+            <h3 className="font-display text-[0.8125rem] font-bold uppercase leading-relaxed text-neon-cyan">
               {pix.howToTitle}
             </h3>
             <ol className="mt-5 space-y-4">
@@ -69,22 +69,22 @@ export function PixSection({ dict, withHeading = true }: PixSectionProps) {
                 <li key={step} className="flex gap-4">
                   <span
                     aria-hidden="true"
-                    className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-neon-cyan/10 font-display text-[0.625rem] text-neon-cyan"
+                    className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-neon-cyan/10 font-display text-[0.75rem] text-neon-cyan"
                   >
                     {index + 1}
                   </span>
-                  <span className="text-sm leading-relaxed text-muted">{step}</span>
+                  <span className="text-base leading-relaxed text-muted">{step}</span>
                 </li>
               ))}
             </ol>
           </Panel>
 
           <Panel>
-            <h3 className="font-display text-[0.6875rem] font-bold uppercase leading-relaxed text-neon-magenta">
+            <h3 className="font-display text-[0.8125rem] font-bold uppercase leading-relaxed text-neon-magenta">
               {pix.useTitle}
             </h3>
-            <p className="mt-4 text-sm leading-relaxed text-muted">{pix.useDescription}</p>
-            <p className="mt-4 text-sm leading-relaxed text-muted">{pix.description}</p>
+            <p className="mt-4 text-base leading-relaxed text-muted">{pix.useDescription}</p>
+            <p className="mt-4 text-base leading-relaxed text-muted">{pix.description}</p>
           </Panel>
         </div>
       </div>

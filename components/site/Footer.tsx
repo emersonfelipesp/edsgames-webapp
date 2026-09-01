@@ -35,7 +35,7 @@ export function Footer({ locale, routeKey, dict }: FooterProps) {
             height={298}
             className="h-14 w-auto rounded-lg bg-plate object-contain px-2 py-1"
           />
-          <p className="mt-4 max-w-xs text-sm leading-relaxed text-muted">{dict.footer.tagline}</p>
+          <p className="mt-4 max-w-xs text-base leading-relaxed text-muted">{dict.footer.tagline}</p>
           <div className="mt-6 flex items-center gap-2">
             <LanguageToggle locale={locale} routeKey={routeKey} dict={dict} />
             <ThemeToggle dict={dict} />
@@ -43,7 +43,7 @@ export function Footer({ locale, routeKey, dict }: FooterProps) {
         </div>
 
         <nav aria-label={dict.footer.navTitle}>
-          <h2 className="font-display text-[0.625rem] uppercase tracking-[0.2em] text-neon-cyan">
+          <h2 className="font-display text-[0.75rem] uppercase tracking-[0.2em] text-neon-cyan">
             {dict.footer.navTitle}
           </h2>
           <ul className="mt-2">
@@ -51,7 +51,7 @@ export function Footer({ locale, routeKey, dict }: FooterProps) {
               <li key={link.href}>
                 <Link
                   href={link.href}
-                  className="flex min-h-11 items-center text-sm text-muted transition-colors hover:text-ink"
+                  className="flex min-h-11 items-center text-base text-muted transition-colors hover:text-ink"
                 >
                   {link.label}
                 </Link>
@@ -61,13 +61,13 @@ export function Footer({ locale, routeKey, dict }: FooterProps) {
         </nav>
 
         <div>
-          <h2 className="font-display text-[0.625rem] uppercase tracking-[0.2em] text-neon-cyan">
+          <h2 className="font-display text-[0.75rem] uppercase tracking-[0.2em] text-neon-cyan">
             {dict.footer.contactTitle}
           </h2>
-          <p className="mt-4 text-sm text-muted">{dict.contact.hours}</p>
+          <p className="mt-4 text-base text-muted">{dict.contact.hours}</p>
           <a
             href={`mailto:${dict.contact.email}`}
-            className="mt-1 inline-flex min-h-11 items-center text-sm text-ink underline decoration-neon-cyan/60 underline-offset-4 transition-colors hover:text-neon-cyan"
+            className="mt-1 inline-flex min-h-11 items-center text-base text-ink underline decoration-neon-cyan/60 underline-offset-4 transition-colors hover:text-neon-cyan"
           >
             {dict.contact.email}
           </a>
@@ -76,8 +76,8 @@ export function Footer({ locale, routeKey, dict }: FooterProps) {
 
       <div className="border-t border-line/70">
         <div className="mx-auto w-full max-w-6xl px-5 py-6 sm:px-8">
-          <p className="text-xs leading-relaxed text-faint">{dict.footer.disclaimer}</p>
-          <p className="mt-3 text-xs text-faint">
+          <p className="text-sm leading-relaxed text-faint">{dict.footer.disclaimer}</p>
+          <p className="mt-3 text-sm text-faint">
             © {year} EDSGAMES. {dict.footer.rights}
           </p>
         </div>

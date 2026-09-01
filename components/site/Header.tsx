@@ -72,7 +72,7 @@ export function Header({ locale, routeKey, dict }: HeaderProps) {
             <Link
               key={link.href}
               href={link.href}
-              className="rounded-lg px-3 py-2 font-display text-[0.625rem] uppercase tracking-wide text-muted transition-colors hover:text-ink"
+              className="rounded-lg px-3 py-2 font-display text-[0.75rem] uppercase tracking-wide text-muted transition-colors hover:text-ink"
             >
               {link.label}
             </Link>
@@ -132,7 +132,7 @@ export function Header({ locale, routeKey, dict }: HeaderProps) {
                 <Link
                   href={link.href}
                   onClick={() => setOpen(false)}
-                  className="flex min-h-12 items-center border-b border-line/60 font-display text-[0.6875rem] uppercase tracking-wide text-ink"
+                  className="flex min-h-12 items-center border-b border-line/60 font-display text-[0.8125rem] uppercase tracking-wide text-ink"
                 >
                   {link.label}
                 </Link>

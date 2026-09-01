@@ -56,15 +56,15 @@ export function CopyPixButton({ label, copiedLabel, failedLabel, keyLabel }: Cop
       </p>
 
       {status === "copied" ? (
-        <p className="mt-3 text-sm text-neon-lime">{copiedLabel}</p>
+        <p className="mt-3 text-base text-neon-lime">{copiedLabel}</p>
       ) : null}
 
       {status === "failed" ? (
-        <p className="mt-3 text-sm text-neon-amber">{failedLabel}</p>
+        <p className="mt-3 text-base text-neon-amber">{failedLabel}</p>
       ) : null}
 
       <details className="mt-5 group">
-        <summary className="inline-flex min-h-11 cursor-pointer list-none items-center text-sm text-muted underline decoration-line-bright underline-offset-4 transition-colors hover:text-ink">
+        <summary className="inline-flex min-h-11 cursor-pointer list-none items-center text-base text-muted underline decoration-line-bright underline-offset-4 transition-colors hover:text-ink">
           {keyLabel}
         </summary>
         <textarea
@@ -73,7 +73,7 @@ export function CopyPixButton({ label, copiedLabel, failedLabel, keyLabel }: Cop
           value={PIX_PAYLOAD}
           aria-label={keyLabel}
           onFocus={(event) => event.currentTarget.select()}
-          className="mt-3 w-full resize-none rounded-lg border border-line bg-void p-3 font-mono text-xs leading-relaxed text-muted"
+          className="mt-3 w-full resize-none rounded-lg border border-line bg-void p-3 font-mono text-sm leading-relaxed text-muted"
         />
       </details>
     </div>

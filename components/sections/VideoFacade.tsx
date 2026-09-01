@@ -57,7 +57,7 @@ export function VideoFacade({ videoId, label, playLabel }: VideoFacadeProps) {
           </svg>
         </span>
       </span>
-      <span className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-media-scrim/90 to-transparent p-4 text-left font-display text-[0.625rem] uppercase leading-relaxed text-on-media sm:p-6 sm:text-sm">
+      <span className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-media-scrim/90 to-transparent p-4 text-left font-display text-[0.75rem] uppercase leading-relaxed text-on-media sm:p-6 sm:text-base">
         {playLabel}
       </span>
     </button>

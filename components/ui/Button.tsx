@@ -6,7 +6,7 @@ type Variant = "primary" | "secondary" | "ghost";
 type Size = "md" | "lg";
 
 const BASE =
-  "inline-flex items-center justify-center gap-2 rounded-xl font-display font-bold uppercase tracking-wide " +
+  "inline-flex items-center justify-center gap-2 rounded-xl text-center font-display font-bold uppercase tracking-wide " +
   "transition-transform transition-colors duration-200 will-change-transform " +
   "active:translate-y-px disabled:opacity-50 disabled:pointer-events-none";
 
@@ -19,8 +19,8 @@ const VARIANTS: Record<Variant, string> = {
 };
 
 const SIZES: Record<Size, string> = {
-  md: "min-h-11 px-4 py-3 text-sm leading-none",
-  lg: "min-h-13 px-5 py-4 text-base leading-none",
+  md: "min-h-11 px-4 py-3 text-sm leading-tight",
+  lg: "min-h-13 px-5 py-4 text-base leading-tight",
 };
 
 type ButtonLinkProps = {

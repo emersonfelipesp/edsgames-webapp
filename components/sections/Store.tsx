@@ -4,7 +4,7 @@ import { route, SECTION_IDS } from "@/lib/routes";
 import { Section, SectionHeading } from "@/components/ui/Section";
 import { Panel } from "@/components/ui/Panel";
 import { ButtonLink } from "@/components/ui/Button";
-import { LazyScene } from "@/components/three/LazyScene";
+import { RetroClip } from "@/components/media/RetroClip";
 
 type StoreProps = {
   locale: Locale;
@@ -42,22 +42,22 @@ export function Store({ locale, dict, compact = false }: StoreProps) {
             />
             <div className="flex flex-1 flex-col p-6 sm:p-8">
               <div className="flex flex-wrap items-baseline gap-3">
-                <h3 className="font-display text-[0.6875rem] font-bold uppercase leading-relaxed sm:text-base">
+                <h3 className="font-display text-[0.8125rem] font-bold uppercase leading-relaxed sm:text-lg">
                   {product.name}
                 </h3>
-                <span className="rounded-md bg-neon-cyan/10 px-2 py-1 font-display text-[0.625rem] text-neon-cyan">
+                <span className="rounded-md bg-neon-cyan/10 px-2 py-1 font-display text-[0.75rem] text-neon-cyan">
                   {product.capacity}
                 </span>
               </div>
-              <p className="mt-3 font-display text-[0.6875rem] font-bold uppercase text-neon-amber">
+              <p className="mt-3 font-display text-[0.8125rem] font-bold uppercase text-neon-amber">
                 {product.highlight}
               </p>
-              <p className="mt-4 text-sm leading-relaxed text-muted">{product.description}</p>
+              <p className="mt-4 text-base leading-relaxed text-muted">{product.description}</p>
               <ul className="mt-5 flex flex-wrap gap-2">
                 {product.systems.map((system) => (
                   <li
                     key={system}
-                    className="rounded-md border border-line bg-void px-2.5 py-1.5 text-xs text-muted"
+                    className="rounded-md border border-line bg-void px-2.5 py-1.5 text-sm text-muted"
                   >
                     {system}
                   </li>
@@ -72,11 +72,11 @@ export function Store({ locale, dict, compact = false }: StoreProps) {
         <div className="mt-10 grid gap-6 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)] lg:items-center">
           <div className="space-y-4">
             {dict.store.paragraphs.map((paragraph) => (
-              <p key={paragraph} className="text-sm leading-relaxed text-muted sm:text-base">
+              <p key={paragraph} className="text-base leading-relaxed text-muted sm:text-lg">
                 {paragraph}
               </p>
             ))}
-            <p className="font-display text-[0.6875rem] font-bold uppercase leading-relaxed text-neon-lime">
+            <p className="font-display text-[0.8125rem] font-bold uppercase leading-relaxed text-neon-lime">
               {dict.store.shippingNote}
             </p>
             {/* Descriptive on its own: "Learn more" tells a screen-reader user
@@ -87,9 +87,9 @@ export function Store({ locale, dict, compact = false }: StoreProps) {
           </div>
 
           <div className="grid gap-6">
-            <LazyScene variant="gamepad" className="h-48 sm:h-56 lg:h-56" />
+            <RetroClip clip="rungun" className="h-48 sm:h-56 lg:h-56" />
             <div className="rounded-panel border border-line bg-panel p-6">
-            <p className="font-display text-[0.625rem] uppercase tracking-[0.2em] text-faint">
+            <p className="font-display text-[0.75rem] uppercase tracking-[0.2em] text-faint">
               {dict.store.paymentsLabel}
             </p>
             <Image

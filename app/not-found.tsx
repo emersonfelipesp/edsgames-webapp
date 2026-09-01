@@ -26,29 +26,29 @@ export default function NotFound() {
       <body className="antialiased">
         <main className="grid min-h-dvh place-items-center px-5 py-20 text-center">
           <div>
-            <p className="font-display text-[0.625rem] uppercase tracking-[0.2em] text-neon-magenta">
+            <p className="font-display text-[0.75rem] uppercase tracking-[0.2em] text-neon-magenta">
               404
             </p>
-            <h1 className="text-glitch mt-5 font-display text-2xl uppercase sm:text-4xl">
+            <h1 className="text-glitch mt-5 font-display text-3xl uppercase sm:text-5xl">
               {dict.notFound.title}
             </h1>
-            <p className="mx-auto mt-6 max-w-md text-sm leading-relaxed text-muted">
+            <p className="mx-auto mt-6 max-w-md text-base leading-relaxed text-muted">
               {dict.notFound.description}
             </p>
-            <p className="mx-auto mt-3 max-w-md text-sm leading-relaxed text-faint" lang="en">
+            <p className="mx-auto mt-3 max-w-md text-base leading-relaxed text-faint" lang="en">
               {enDict.notFound.description}
             </p>
             <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
               <Link
                 href="/"
-                className="inline-flex min-h-12 items-center justify-center rounded-xl bg-accent px-5 font-display text-[0.625rem] uppercase text-on-accent"
+                className="inline-flex min-h-12 items-center justify-center rounded-xl bg-accent px-5 font-display text-[0.75rem] uppercase text-on-accent"
               >
                 {dict.actions.backToHome}
               </Link>
               <Link
                 href="/en/"
                 lang="en"
-                className="inline-flex min-h-12 items-center justify-center rounded-xl border border-line-bright px-5 font-display text-[0.625rem] uppercase text-muted"
+                className="inline-flex min-h-12 items-center justify-center rounded-xl border border-line-bright px-5 font-display text-[0.75rem] uppercase text-muted"
               >
                 {enDict.actions.backToHome}
               </Link>
