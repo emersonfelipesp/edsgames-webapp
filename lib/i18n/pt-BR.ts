@@ -26,6 +26,20 @@ export const ptBR = {
       "O EDSGAMES é um projeto sem fins lucrativos mantido pela comunidade. Contribua com qualquer valor via PIX.",
   },
 
+  theme: {
+    label: "Tema",
+    current: {
+      system: "Tema: seguindo o sistema",
+      light: "Tema: claro",
+      dark: "Tema: escuro",
+    },
+    switchTo: {
+      system: "Mudar para seguir o sistema",
+      light: "Mudar para o tema claro",
+      dark: "Mudar para o tema escuro",
+    },
+  },
+
   nav: {
     home: "Início",
     about: "Sobre",

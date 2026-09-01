@@ -28,6 +28,20 @@ export const en: Dictionary = {
       "EDSGAMES is a non-profit project kept alive by its community. Contribute any amount via PIX.",
   },
 
+  theme: {
+    label: "Theme",
+    current: {
+      system: "Theme: following the system",
+      light: "Theme: light",
+      dark: "Theme: dark",
+    },
+    switchTo: {
+      system: "Switch to following the system",
+      light: "Switch to the light theme",
+      dark: "Switch to the dark theme",
+    },
+  },
+
   nav: {
     home: "Home",
     about: "About",

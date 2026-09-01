@@ -15,6 +15,8 @@ underneath it.
 
 - [What changed](#what-changed)
 - [Stack, and why](#stack-and-why)
+- [Type](#type)
+- [Themes](#themes)
 - [Getting started](#getting-started)
 - [Project structure](#project-structure)
 - [Editing the copy](#editing-the-copy)
@@ -33,6 +35,7 @@ underneath it.
 |---|---|---|
 | Platform | Blogger template | Next.js App Router, exported to static HTML |
 | Languages | Brazilian Portuguese only | Brazilian Portuguese and English, both statically generated |
+| Themes | One, light | Light and dark, following the operating system by default, with a toggle |
 | Third-party requests | 7 CDNs, Meta Pixel, Mailchimp, a YouTube embed on load | None. Fonts and images are self-hosted; YouTube loads only on click |
 | Images | ~2.5 MB of Blogger-hosted PNG, hotlinked | ~400 KB of WebP, committed to the repository |
 | Sales page | `/p/vendas.html` is empty | A real store page built from the homepage sales copy |
@@ -54,9 +57,68 @@ Portuguese source were corrected; nothing was added, softened or invented.
 - **Tailwind CSS v4.** All design tokens are CSS custom properties declared once
   in `app/globals.css` under `@theme`. No component carries an ad-hoc colour.
 - **`next/font`.** Fonts are downloaded at build time and served from our own
-  origin. A visitor's browser never contacts a font CDN.
+  origin. A visitor's browser never contacts a font CDN. See [Type](#type).
 - **React Three Fiber and drei.** Only for the decorative scenes, always
   code-split, never in the initial payload.
+
+## Type
+
+Two faces, one for each half of the brief.
+
+- **Silkscreen** for display: headings, buttons and labels. A genuine bitmap
+  face — the lettering of a cabinet marquee or an 8-bit title screen.
+- **IBM Plex Mono** for body copy and interface text. The terminal half: it
+  carries the "old computing" feeling while staying readable at paragraph
+  length, which a bitmap terminal font such as VT323 does not.
+
+Silkscreen was chosen empirically rather than by taste. **Most pixel faces draw
+accented uppercase badly or not at all**, and this site's default language is
+Portuguese, so that disqualifies them outright:
+
+| Face | `APÓS EXTRAÍDO CONTRIBUIÇÃO DÚVIDAS` |
+|---|---|
+| Press Start 2P | `APóS EXTRAíDO CONTRIBUIÇAO DúVIDAS` ✗ |
+| Sixtyfour | `APÓS EXTRAíDO CONTRIBUIÇAO DÓVIDAS` ✗ |
+| **Silkscreen** | `APÓS EXTRAÍDO CONTRIBUIÇÃO DÚVIDAS` ✓ |
+
+Silkscreen also ships a real 700 weight, so bold headings are drawn rather than
+synthetically smeared — which matters more for a bitmap face than for a normal
+one.
+
+**If you change the display face, render that sample string first.** Requesting
+the `latin-ext` subset is necessary but not sufficient: Press Start 2P *has*
+those codepoints, it simply draws them as undersized lowercase forms, so no
+subset setting and no font fallback can rescue it.
+
+## Themes
+
+The site ships light and dark, and **follows the operating system by default**.
+
+- The palette lives entirely in CSS custom properties. `@theme` in
+  `app/globals.css` holds the dark values, and the light theme redefines the
+  same variables, so no utility, shadow or `color-mix()` needs to know which
+  theme is active.
+- The toggle in the header and footer cycles three states: **follow the system**,
+  force light, force dark. "System" is a real state, not an implicit default, so
+  a visitor who once picked a theme can hand control back to their OS.
+- The choice is stored in `localStorage` and applied by `public/theme-init.js`
+  before the first paint, so a forced theme never flashes the other one.
+- **With JavaScript disabled the site still follows the system**, because the
+  `prefers-color-scheme` media query does that on its own. The script only ever
+  applies a stored override.
+- `<meta name="theme-color">` is kept in step by `ThemeColorSync`, so the
+  browser chrome never disagrees with the page.
+
+A few colours deliberately do **not** invert, and they have their own tokens:
+
+| Token | Why |
+|---|---|
+| `--color-accent` / `--color-on-accent` | The call to action stays the same warm amber in both themes, so its foreground cannot follow the page ground |
+| `--color-plate` | A permanently dark plate behind artwork that only reads on dark — the neon logo, the near-white trust seals. Transparent in the dark theme |
+| `--color-media-scrim` / `--color-on-media` | Text sitting on photography, which is dark in both themes |
+
+The neon accents are darkened rather than reused in the light theme: `#22e1f2`
+on white is about 1.6:1 and unreadable.
 
 ## Getting started
 
@@ -92,14 +154,14 @@ app/
   (en)/            English route tree, served at /en
     layout.tsx     root layout, lang="en"
     en/page.tsx  en/download/  en/store/  en/contribute/
-  globals.css      design tokens and base styles
+  globals.css      design tokens, both palettes, base styles
   not-found.tsx    bilingual 404 (has its own <html>, see below)
   sitemap.ts  robots.ts  icon.png  apple-icon.png
 
 components/
   pages/           one component per page, taking a `locale`
   sections/        the page sections, all server components
-  site/            header, footer, page shell, language toggle
+  site/            header, footer, page shell, language and theme toggles
   three/           models, scenes, canvas stage, lazy loader
   ui/              button, panel, section, PIX copy button
 
@@ -108,10 +170,14 @@ lib/
   routes.ts        the per-locale route table
   pix.ts           the PIX payload — read the warning in that file
   csp.ts           the Content Security Policy
+  theme.ts         theme preference store and the resolved-theme hook
   fonts.ts  metadata.ts  cn.ts
   hooks/           reduced motion, in-view, device-capability
 
-public/img/        every image, vendored from the original site
+public/
+  theme-init.js    applies a stored theme before first paint
+  _headers         security headers for Netlify and Cloudflare Pages
+  img/             every image, vendored from the original site
 ```
 
 Two details worth knowing before you move things around:
@@ -215,9 +281,12 @@ how to tighten this to script hashes at the header level.
 - Every interactive control is keyboard-operable. The FAQ and the PIX key
   disclosure use native `<details>`, so they work with no JavaScript at all.
 - Touch targets are at least 44 px.
-- Contrast meets WCAG AA against the dark palette on every combination in use.
-  This is the easiest thing to break here: if you add a colour, check it.
-- `prefers-reduced-motion` is respected by the CSS and by every 3D scene.
+- Contrast meets WCAG AA in **both** themes, verified by walking every text
+  node in the rendered page and computing the ratio against its composited
+  background. This is the easiest thing to break here: if you add a colour,
+  check it in light *and* dark.
+- `prefers-reduced-motion` is respected by the CSS and by every 3D scene, and
+  `prefers-color-scheme` selects the theme when the visitor has not chosen one.
 - Decorative images have empty `alt`; decorative canvases are `aria-hidden`.
 
 ## Deployment

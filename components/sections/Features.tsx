@@ -45,7 +45,7 @@ export function Features({ dict }: FeaturesProps) {
             >
               <path d={ICONS[index % ICONS.length]} />
             </svg>
-            <h3 className="mt-5 font-display font-semibold text-sm uppercase leading-relaxed">
+            <h3 className="mt-5 font-display text-[0.6875rem] font-bold uppercase leading-relaxed">
               {item.title}
             </h3>
             <p className="mt-3 text-sm leading-relaxed text-muted">{item.description}</p>

@@ -75,6 +75,10 @@ grep -oP '(?<=<script>).*?(?=</script>)' out/index.html \
 The hashes change on every build, so only do this if your deploy pipeline can
 regenerate them automatically. A stale hash list breaks the site completely.
 
+`/theme-init.js` needs no hash under either policy: it is an external
+same-origin file, which is exactly why the pre-paint theme script is not
+inlined.
+
 ---
 
 ## Host configuration

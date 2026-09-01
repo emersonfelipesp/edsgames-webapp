@@ -4,6 +4,7 @@ import type { ReactNode } from "react";
 import { Canvas } from "@react-three/fiber";
 import { ContactShadows } from "@react-three/drei";
 import { usePrefersReducedMotion } from "@/lib/hooks/usePrefersReducedMotion";
+import { useResolvedTheme } from "@/lib/theme";
 import { PALETTE } from "./palette";
 
 type StageProps = {
@@ -26,6 +27,8 @@ type StageProps = {
  */
 export function Stage({ children, distance = 6, shadows = true, paused = false }: StageProps) {
   const reducedMotion = usePrefersReducedMotion();
+  const theme = useResolvedTheme();
+  const isDark = theme === "dark";
   // Phones pay for every extra pixel and every shadow map, so they get neither.
   const smallScreen =
     typeof window !== "undefined" && window.matchMedia("(max-width: 640px)").matches;
@@ -40,22 +43,34 @@ export function Stage({ children, distance = 6, shadows = true, paused = false }
       gl={{ antialias: true, powerPreference: "low-power" }}
       camera={{ position: [0, 1.6, distance], fov: 38 }}
     >
-      <color attach="background" args={[PALETTE.void]} />
-      <ambientLight intensity={0.55} />
-      <hemisphereLight args={[PALETTE.cyan, PALETTE.magenta, 0.5]} />
+      <color attach="background" args={[isDark ? PALETTE.void : PALETTE.paper]} />
+      {/* A light ground needs more fill and far less neon, or the models
+          wash out and the rim lights read as smudges. */}
+      <ambientLight intensity={isDark ? 0.55 : 1.1} />
+      <hemisphereLight args={[PALETTE.cyan, PALETTE.magenta, isDark ? 0.5 : 0.25]} />
       <directionalLight
         position={[4, 6, 4]}
         intensity={1.5}
         castShadow={castShadows}
         shadow-mapSize={[512, 512]}
       />
-      <pointLight position={[-4, 2, 3]} intensity={22} color={PALETTE.magenta} distance={14} />
-      <pointLight position={[4, 1, 4]} intensity={18} color={PALETTE.cyan} distance={14} />
+      <pointLight
+        position={[-4, 2, 3]}
+        intensity={isDark ? 22 : 9}
+        color={PALETTE.magenta}
+        distance={14}
+      />
+      <pointLight
+        position={[4, 1, 4]}
+        intensity={isDark ? 18 : 7}
+        color={PALETTE.cyan}
+        distance={14}
+      />
       {children}
       {castShadows ? (
         <ContactShadows
           position={[0, -1.15, 0]}
-          opacity={0.5}
+          opacity={isDark ? 0.5 : 0.32}
           scale={12}
           blur={2.6}
           far={4}

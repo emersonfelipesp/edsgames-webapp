@@ -1,13 +1,10 @@
 @import "tailwindcss";
 
-/* ------------------------------------------------------------------------- */
-/* Design tokens                                                              */
-/*                                                                            */
-/* The palette is taken from the EDSGAMES logo: a cyan and magenta chromatic  */
-/* split over a near-black ground. Amber is the single call-to-action colour  */
-/* so that primary actions never compete with the decorative neon.            */
-/* ------------------------------------------------------------------------- */
 @theme {
+  /* The dark palette is the default: it is the site's identity, and it is what
+     `@theme` bakes into every generated utility. The light palette below
+     overrides the same variables, so no utility, shadow or `color-mix()` has to
+     know which theme is active. */
   --color-void: #06060c;
   --color-abyss: #0a0a14;
   --color-panel: #10101d;
@@ -17,17 +14,30 @@
 
   --color-ink: #f4f4f9;
   --color-muted: #9d9dbb;
-  /* #6e6e8c measured 3.6:1 to 4.1:1 on these grounds, below WCAG AA.
-     This value clears 5:1 everywhere while staying quieter than --color-muted. */
   --color-faint: #8686a6;
 
   --color-neon-cyan: #22e1f2;
   --color-neon-magenta: #f23bd4;
   --color-neon-amber: #ffb547;
   --color-neon-lime: #7cf67c;
+  --color-danger: #f87171;
 
-  --font-display: var(--font-pixel), ui-monospace, "Courier New", monospace;
-  --font-sans: var(--font-space-grotesk), ui-sans-serif, system-ui, sans-serif;
+  /* The call-to-action stays the same warm amber in both themes, so it needs a
+     foreground that does not follow `--color-void` when the ground inverts. */
+  --color-accent: #ffb547;
+  --color-on-accent: #0a0a12;
+
+  /* A permanently dark plate for artwork that only reads on a dark ground: the
+     neon logo and the near-white trust seals. Invisible in the dark theme. */
+  --color-plate: transparent;
+
+  /* Text and scrims that sit on photography rather than on the page ground.
+     These never invert: the artwork underneath is dark in both themes. */
+  --color-media-scrim: #06060c;
+  --color-on-media: #f4f4f9;
+
+  --font-display: var(--font-silkscreen), ui-monospace, "Courier New", monospace;
+  --font-sans: var(--font-plex-mono), ui-monospace, "Courier New", monospace;
 
   --radius-panel: 1.25rem;
 
@@ -39,6 +49,63 @@
   --animate-float: float 6s ease-in-out infinite;
   --animate-marquee: marquee 32s linear infinite;
   --animate-blink: blink 1.1s steps(2, start) infinite;
+}
+
+/* --------------------------------------------------------------------------- */
+/* Light theme                                                                  */
+/*                                                                              */
+/* Applied when the operating system asks for light and the visitor has not      */
+/* forced dark, or when the visitor has explicitly chosen light. `data-theme` is */
+/* set by `public/theme-init.js` before first paint, so there is no flash.       */
+/* With JavaScript disabled the media query alone still follows the system.      */
+/*                                                                              */
+/* The neon accents are darkened rather than reused: #22e1f2 on white is about   */
+/* 1.6:1 and unreadable. These values all clear WCAG AA on the light grounds.    */
+/* --------------------------------------------------------------------------- */
+@layer theme {
+  @media (prefers-color-scheme: light) {
+    :root:not([data-theme="dark"]) {
+      --color-void: #f4f4f9;
+      --color-abyss: #e9e9f2;
+      --color-panel: #ffffff;
+      --color-panel-raised: #f4f4fa;
+      --color-line: #d7d7e4;
+      --color-line-bright: #b2b2c9;
+
+      --color-ink: #14141f;
+      --color-muted: #45455e;
+      --color-faint: #5c5c78;
+
+      --color-neon-cyan: #096f7d;
+      --color-neon-magenta: #a3178a;
+      --color-neon-amber: #7d4600;
+      --color-neon-lime: #256b25;
+      --color-danger: #b7251d;
+
+      --color-plate: #0a0a14;
+    }
+  }
+
+  :root[data-theme="light"] {
+    --color-void: #f4f4f9;
+    --color-abyss: #e9e9f2;
+    --color-panel: #ffffff;
+    --color-panel-raised: #f4f4fa;
+    --color-line: #d7d7e4;
+    --color-line-bright: #b2b2c9;
+
+    --color-ink: #14141f;
+    --color-muted: #45455e;
+    --color-faint: #5c5c78;
+
+    --color-neon-cyan: #096f7d;
+    --color-neon-magenta: #a3178a;
+    --color-neon-amber: #7d4600;
+    --color-neon-lime: #256b25;
+    --color-danger: #b7251d;
+
+    --color-plate: #0a0a14;
+  }
 }
 
 @keyframes float {
@@ -73,6 +140,21 @@
   html {
     scroll-behavior: smooth;
     -webkit-text-size-adjust: 100%;
+    color-scheme: dark;
+  }
+
+  @media (prefers-color-scheme: light) {
+    html:not([data-theme="dark"]) {
+      color-scheme: light;
+    }
+  }
+
+  html[data-theme="light"] {
+    color-scheme: light;
+  }
+
+  html[data-theme="dark"] {
+    color-scheme: dark;
   }
 
   body {
@@ -92,7 +174,7 @@
 
   ::selection {
     background-color: var(--color-neon-magenta);
-    color: var(--color-void);
+    color: var(--color-panel);
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -138,6 +220,30 @@
     to bottom,
     rgba(255, 255, 255, 0.022) 0px,
     rgba(255, 255, 255, 0.022) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+}
+
+/* On a light ground the sheet has to darken rather than lighten, or it does
+   nothing at all. */
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) .crt-scanlines::after {
+    background: repeating-linear-gradient(
+      to bottom,
+      rgba(10, 10, 20, 0.03) 0px,
+      rgba(10, 10, 20, 0.03) 1px,
+      transparent 1px,
+      transparent 3px
+    );
+  }
+}
+
+:root[data-theme="light"] .crt-scanlines::after {
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(10, 10, 20, 0.03) 0px,
+    rgba(10, 10, 20, 0.03) 1px,
     transparent 1px,
     transparent 3px
   );

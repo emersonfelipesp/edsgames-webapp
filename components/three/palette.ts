@@ -4,6 +4,8 @@
  */
 export const PALETTE = {
   void: "#06060c",
+  /** The light theme's page ground, so a canvas does not sit as a dark hole. */
+  paper: "#f4f4f9",
   panel: "#10101d",
   shell: "#d8d5cc",
   shellDark: "#b4b0a6",
