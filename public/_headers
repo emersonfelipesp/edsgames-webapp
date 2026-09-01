@@ -3,15 +3,27 @@
 # `frame-ancestors`, which is ignored in a meta tag, and HSTS. Keep this policy
 # in step with `lib/csp.ts`. See DEPLOYMENT.md.
 /*
-  Content-Security-Policy: default-src 'self'; base-uri 'none'; object-src 'none'; form-action 'none'; frame-ancestors 'none'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; media-src 'self'; frame-src https://www.youtube-nocookie.com; worker-src 'self' blob:; manifest-src 'self'; upgrade-insecure-requests
-  Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
+  Content-Security-Policy: default-src 'self'; base-uri 'none'; object-src 'none'; form-action 'none'; frame-ancestors 'none'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; media-src 'self'; frame-src https://www.youtube-nocookie.com; worker-src 'self'; manifest-src 'self'; upgrade-insecure-requests
+  # `includeSubDomains` and `preload` are deliberately absent. The first breaks
+  # any subdomain of edsgames.com.br still served over HTTP, and the second is a
+  # near-irreversible commitment that also requires submitting the domain to the
+  # browser preload list. Add them once every subdomain is HTTPS - see
+  # DEPLOYMENT.md.
+  Strict-Transport-Security: max-age=63072000
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
   Permissions-Policy: camera=(), microphone=(), geolocation=()
   Cross-Origin-Opener-Policy: same-origin
+  # The default is "revalidate": every hashed asset below opts back out of it.
+  # Matching HTML by extension would miss `/loja/` and every other directory
+  # route, so the safe default belongs here and the exceptions below override it.
+  Cache-Control: public, max-age=0, must-revalidate
 
 /_next/static/*
   Cache-Control: public, max-age=31536000, immutable
 
 /img/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/video/*
   Cache-Control: public, max-age=31536000, immutable

@@ -337,13 +337,31 @@ export const ptBR = {
         name: "EDSBATOCERA-V32GB",
         description: "Sistema bootável baseado em GNU/Linux, gravado no pendrive ou HD.",
         href: "https://sub4unlock.io/T2Am7",
+        // Cole aqui a soma SHA-256 do arquivo publicado. Enquanto for `null`, a
+        // página mostra o aviso de arquivo não verificado em vez de um valor.
+        checksum: null as string | null,
       },
       {
         name: "EDSRETROBAT-V32GB",
         description: "Executável que roda dentro do Windows.",
         href: "https://sub4unlock.io/lCE4g",
+        checksum: null as string | null,
       },
     ],
+    integrityTitle: "Confira o arquivo antes de gravar",
+    integrityLead:
+      "Gravar uma imagem de sistema apaga o dispositivo inteiro, e um arquivo trocado no caminho vira um sistema comprometido rodando no seu computador. Confira a soma de verificação SHA-256 do arquivo baixado antes de usá-lo. Se ela não bater com a publicada aqui, apague o arquivo e baixe de novo.",
+    integrityUnverified:
+      "Ainda não publicamos a soma de verificação deste arquivo. Até lá, baixe somente pelos links oficiais desta página e desconfie de qualquer cópia obtida em outro lugar.",
+    checksumLabel: "SHA-256",
+    verifyTitle: "Como conferir",
+    verifySteps: [
+      { os: "Windows", command: "certutil -hashfile ARQUIVO.zip SHA256" },
+      { os: "Linux", command: "sha256sum ARQUIVO.zip" },
+      { os: "macOS", command: "shasum -a 256 ARQUIVO.zip" },
+    ],
+    thirdPartyNote:
+      "Os links de download passam por um site externo de desbloqueio, que não é nosso e pode exibir anúncios. Não digite senhas nem dados pessoais nele: ele só precisa liberar o arquivo.",
     stepsTitle: "Instruções para o EDSBATOCERA",
     steps: [
       "Depois de feito o download, abra a pasta na qual salvou o arquivo.",

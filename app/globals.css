@@ -56,7 +56,8 @@
 /*                                                                              */
 /* Applied when the operating system asks for light and the visitor has not      */
 /* forced dark, or when the visitor has explicitly chosen light. `data-theme` is */
-/* set by `public/theme-init.js` before first paint, so there is no flash.       */
+/* set by the inline bootstrap in `lib/theme-init-script.ts` before first paint,*/
+/* so there is no flash.                                                        */
 /* With JavaScript disabled the media query alone still follows the system.      */
 /*                                                                              */
 /* The neon accents are darkened rather than reused: #22e1f2 on white is about   */

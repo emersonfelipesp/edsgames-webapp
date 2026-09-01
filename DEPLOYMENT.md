@@ -24,6 +24,10 @@ should send the same policy as a real header as well**, for two reasons:
 
 - `frame-ancestors` is ignored in a meta tag. Only a real header can stop the
   site being framed, so clickjacking protection depends on this.
+- `Cache-Control` cannot be set from the document at all, and the default in
+  `_headers` is deliberately `must-revalidate` for everything, with the hashed
+  asset paths opting back into immutable caching. Matching HTML by extension
+  would miss `/loja/` and every other directory route.
 - The other headers below — HSTS, `X-Content-Type-Options`, `Permissions-Policy`
   — have no meta-tag equivalent at all.
 
@@ -40,12 +44,12 @@ form-action 'none';
 frame-ancestors 'none';
 script-src 'self' 'unsafe-inline';
 style-src 'self' 'unsafe-inline';
-img-src 'self' data: blob:;
+img-src 'self' data:;
 font-src 'self';
 connect-src 'self';
 media-src 'self';
 frame-src https://www.youtube-nocookie.com;
-worker-src 'self' blob:;
+worker-src 'self';
 manifest-src 'self';
 upgrade-insecure-requests
 ```
@@ -75,9 +79,8 @@ grep -oP '(?<=<script>).*?(?=</script>)' out/index.html \
 The hashes change on every build, so only do this if your deploy pipeline can
 regenerate them automatically. A stale hash list breaks the site completely.
 
-`/theme-init.js` needs no hash under either policy: it is an external
-same-origin file, which is exactly why the pre-paint theme script is not
-inlined.
+That command also covers the pre-paint theme bootstrap, which is inlined into
+every document's `<head>` — see `lib/theme-init-script.ts`.
 
 ---
 
@@ -90,8 +93,8 @@ is copied into the export):
 
 ```
 /*
-  Content-Security-Policy: default-src 'self'; base-uri 'none'; object-src 'none'; form-action 'none'; frame-ancestors 'none'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; media-src 'self'; frame-src https://www.youtube-nocookie.com; worker-src 'self' blob:; manifest-src 'self'; upgrade-insecure-requests
-  Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
+  Content-Security-Policy: default-src 'self'; base-uri 'none'; object-src 'none'; form-action 'none'; frame-ancestors 'none'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; media-src 'self'; frame-src https://www.youtube-nocookie.com; worker-src 'self'; manifest-src 'self'; upgrade-insecure-requests
+  Strict-Transport-Security: max-age=63072000
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
   Permissions-Policy: camera=(), microphone=(), geolocation=(), interest-cohort=()
@@ -114,8 +117,8 @@ Build command `pnpm build`, publish directory `out`.
     {
       "source": "/(.*)",
       "headers": [
-        { "key": "Content-Security-Policy", "value": "default-src 'self'; base-uri 'none'; object-src 'none'; form-action 'none'; frame-ancestors 'none'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; media-src 'self'; frame-src https://www.youtube-nocookie.com; worker-src 'self' blob:; manifest-src 'self'; upgrade-insecure-requests" },
-        { "key": "Strict-Transport-Security", "value": "max-age=63072000; includeSubDomains; preload" },
+        { "key": "Content-Security-Policy", "value": "default-src 'self'; base-uri 'none'; object-src 'none'; form-action 'none'; frame-ancestors 'none'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; media-src 'self'; frame-src https://www.youtube-nocookie.com; worker-src 'self'; manifest-src 'self'; upgrade-insecure-requests" },
+        { "key": "Strict-Transport-Security", "value": "max-age=63072000" },
         { "key": "X-Content-Type-Options", "value": "nosniff" },
         { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
         { "key": "Permissions-Policy", "value": "camera=(), microphone=(), geolocation=()" }
@@ -135,8 +138,8 @@ server {
     root /var/www/edsgames-webapp/out;
     index index.html;
 
-    add_header Content-Security-Policy "default-src 'self'; base-uri 'none'; object-src 'none'; form-action 'none'; frame-ancestors 'none'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; media-src 'self'; frame-src https://www.youtube-nocookie.com; worker-src 'self' blob:; manifest-src 'self'; upgrade-insecure-requests" always;
-    add_header Strict-Transport-Security "max-age=63072000; includeSubDomains; preload" always;
+    add_header Content-Security-Policy "default-src 'self'; base-uri 'none'; object-src 'none'; form-action 'none'; frame-ancestors 'none'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; media-src 'self'; frame-src https://www.youtube-nocookie.com; worker-src 'self'; manifest-src 'self'; upgrade-insecure-requests" always;
+    add_header Strict-Transport-Security "max-age=63072000" always;
     add_header X-Content-Type-Options "nosniff" always;
     add_header Referrer-Policy "strict-origin-when-cross-origin" always;
     add_header Permissions-Policy "camera=(), microphone=(), geolocation=()" always;
@@ -159,6 +162,15 @@ Note that `add_header` does not inherit into a `location` block that declares
 its own, which is why the cache blocks above would otherwise silently drop every
 security header. Repeat them, or use `nginx` 1.25+ with an include.
 
+### About HSTS
+
+The shipped value is deliberately `max-age=63072000` with **no**
+`includeSubDomains` and **no** `preload`. `includeSubDomains` breaks any
+subdomain of the site still served over HTTP, and `preload` is a
+near-irreversible commitment that additionally requires submitting the domain to
+the browser preload list. Add both only once every subdomain is HTTPS and you
+intend to submit.
+
 ---
 
 ## After deploying
@@ -172,4 +184,8 @@ security header. Repeat them, or use `nginx` 1.25+ with an include.
   unavailable on insecure origins, where the button falls back to a selectable
   field.
 - Confirm the browser console is free of CSP violations on `/` and
-  `/download/`.
+  `/download/`. A quiet console does not prove the policy is active — inject a
+  cross-origin script and confirm it is refused.
+- Publish the SHA-256 of both download files into `downloadPage.downloads[].checksum`
+  in `lib/i18n/pt-BR.ts` and `lib/i18n/en.ts`. Until then the download page
+  tells visitors the files are unverified.

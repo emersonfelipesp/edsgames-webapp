@@ -86,10 +86,15 @@ Silkscreen also ships a real 700 weight, so bold headings are drawn rather than
 synthetically smeared — which matters more for a bitmap face than for a normal
 one.
 
-**If you change the display face, render that sample string first.** Requesting
-the `latin-ext` subset is necessary but not sufficient: Press Start 2P *has*
-those codepoints, it simply draws them as undersized lowercase forms, so no
-subset setting and no font fallback can rescue it.
+**If you change the display face, render that sample string first.** No subset
+setting can rescue a face that draws those glyphs badly: Press Start 2P *has*
+the codepoints and simply draws them as undersized lowercase forms, so the
+browser never falls back.
+
+Both faces request the **`latin` subset only**. That was verified against the
+generated `@font-face` rules: every accent Portuguese needs sits in `latin`
+(U+0000–00FF), and `latin-ext` (U+0100–024F) covers none of them. Adding it
+preloaded four font files the site can never use.
 
 ## Themes
 
@@ -102,8 +107,10 @@ The site ships light and dark, and **follows the operating system by default**.
 - The toggle in the header and footer cycles three states: **follow the system**,
   force light, force dark. "System" is a real state, not an implicit default, so
   a visitor who once picked a theme can hand control back to their OS.
-- The choice is stored in `localStorage` and applied by `public/theme-init.js`
-  before the first paint, so a forced theme never flashes the other one.
+- The choice is stored in `localStorage` and applied by the small inline script
+  in `lib/theme-init-script.ts` before the first paint, so a forced theme never
+  flashes the other one. It is inlined rather than fetched because as an
+  external file it cost 304 ms of render-blocking time on mobile for 1.1 KB.
 - **With JavaScript disabled the site still follows the system**, because the
   `prefers-color-scheme` media query does that on its own. The script only ever
   applies a stored override.
@@ -172,6 +179,7 @@ lib/
   pix.ts           the PIX payload — read the warning in that file
   csp.ts           the Content Security Policy
   theme.ts         theme preference store and the resolved-theme hook
+  theme-init-script.ts  the inline pre-paint theme bootstrap
   fonts.ts  metadata.ts  cn.ts
   hooks/           reduced motion, in-view, device-capability
 
@@ -180,8 +188,7 @@ tools/
 
 public/
   video/           the generated clips, as WebM, MP4 and poster
-  theme-init.js    applies a stored theme before first paint
-  _headers         security headers for Netlify and Cloudflare Pages
+  _headers         security and caching headers for Netlify / Cloudflare Pages
   img/             every image, vendored from the original site
 ```
 
@@ -271,13 +278,37 @@ only loops if it advances a whole number of its own tile periods per cycle,
 which is what `scroll_off()` in `scenes.py` enforces. `render.py` is checked by
 comparing frame `N` against frame `0`.
 
+## Publishing download checksums
+
+The two files on `/download/` are bootable system images: a visitor writes one
+to a disk, destroying its contents, and boots it. They travel through a
+third-party unlock page and are unsigned, so a swapped file would be installed
+with nothing to catch it.
+
+`lib/i18n/*.ts` therefore gives each entry in `downloadPage.downloads` a
+`checksum` field. While it is `null` the page shows an honest "not verified yet"
+advisory — a placeholder hash would be worse than none, because a visitor would
+compare against it and believe the answer.
+
+To publish the real ones, hash each released file and paste the result into both
+dictionaries:
+
+```bash
+sha256sum EDSBATOCERA-V32GB.zip EDSRETROBAT-V32GB.zip
+```
+
+The page then renders each hash with the `certutil` / `sha256sum` / `shasum`
+commands a visitor needs to check it.
+
 ## Security
 
 The site is static, so there is no server-side attack surface. What is left is
 the delivery layer, and it is handled deliberately:
 
 - A Content Security Policy in `lib/csp.ts`, emitted as a `<meta http-equiv>`
-  tag and documented for the host to send as a real header.
+  tag and documented for the host to send as a real header. Enforcement is
+  verified by injection rather than by an absence of console errors: a
+  cross-origin script, image, `fetch` and iframe are all refused.
 - No third-party script origins at all. No analytics, no tag manager, no
   tracking pixel. The only third-party origin in the whole policy is
   `youtube-nocookie.com`, in `frame-src`, reachable only after a visitor clicks

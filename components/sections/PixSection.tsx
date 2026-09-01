@@ -1,4 +1,3 @@
-import Image from "next/image";
 import type { Dictionary } from "@/lib/i18n";
 import { SECTION_IDS } from "@/lib/routes";
 import { Section, SectionHeading } from "@/components/ui/Section";
@@ -33,11 +32,14 @@ export function PixSection({ dict, withHeading = true }: PixSectionProps) {
       <div className="mt-12 grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.15fr)] lg:items-start">
         <Panel className="flex flex-col items-center gap-6 text-center">
           <div className="w-full max-w-70 overflow-hidden rounded-xl bg-white p-3">
-            <Image
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
               src={PIX_QR_IMAGE}
               alt={pix.qrAlt}
               width={1080}
               height={1350}
+              loading="lazy"
+              decoding="async"
               className="h-auto w-full"
             />
           </div>

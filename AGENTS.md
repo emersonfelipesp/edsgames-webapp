@@ -38,20 +38,28 @@ that will break if you do not know them.
    or Metal Slug assets would put SEGA, Nintendo and SNK material on a site that
    also sells hardware.
 
-5. **No third-party scripts.** No analytics, tag managers or tracking pixels —
+5. **Never publish a placeholder checksum.** `downloadPage.downloads[].checksum`
+   is `null` until a real SHA-256 exists, and the page shows an advisory in its
+   place. A fake or stale hash is worse than none: a visitor compares against it
+   and believes the answer, for a file they are about to write over a disk.
+
+6. **No third-party scripts.** No analytics, tag managers or tracking pixels —
    the original site had a Meta Pixel and a Mailchimp tag and they were removed
    on purpose. Adding one means editing `lib/csp.ts`, which is the signal that
    you are doing something the project decided against.
 
-6. **No `dangerouslySetInnerHTML`, `eval`, `new Function`, or dynamic script
+7. **No `dangerouslySetInnerHTML`, `eval`, `new Function`, or dynamic script
    injection.** There is no case for any of them in a static marketing site.
-   The pre-paint theme script is a separate same-origin file,
-   `public/theme-init.js`, precisely so that this rule holds. Keep it
-   dependency-free, keep it synchronous — deferring it reintroduces the theme
-   flash it exists to prevent — and keep it wrapped in `try`/`catch`, because
-   `localStorage` throws outright in some privacy modes.
+   The pre-paint theme bootstrap lives in `lib/theme-init-script.ts` and is
+   inlined as `<script>{THEME_INIT_SCRIPT}</script>`. React 19 renders a string
+   child of `<script>` as script text, so no `dangerouslySetInnerHTML` is
+   involved and the rule holds. Keep it a **frozen constant** — nothing may ever
+   be interpolated into it — keep it dependency-free, and keep it wrapped in
+   `try`/`catch`, because `localStorage` throws outright in some privacy modes.
+   It is inline rather than fetched for a measured reason: as an external file
+   it was 304 ms of render-blocking time on mobile for 1.1 KB.
 
-7. **Never hard-code a colour that assumes the dark theme.** Every colour comes
+8. **Never hard-code a colour that assumes the dark theme.** Every colour comes
    from a token in `app/globals.css`, and the light theme redefines those same
    tokens. Four token pairs deliberately do not invert — `--color-accent` and
    `--color-on-accent`, `--color-plate`, and `--color-media-scrim` with
@@ -59,12 +67,14 @@ that will break if you do not know them.
    dark plate, and text over photography keep working when the ground flips.
    Reach for those rather than inventing a literal.
 
-8. **The display face must draw accented uppercase.** Portuguese is the default
+9. **The display face must draw accented uppercase.** Portuguese is the default
    language, and most pixel fonts fail this: Press Start 2P renders "APÓS
    EXTRAÍDO CONTRIBUIÇÃO" as "APóS EXTRAíDO CONTRIBUIÇAO", and Sixtyfour drops
    the tilde. Both were tried and rejected. Requesting `latin-ext` does not fix
    it — those faces *have* the codepoints and simply draw them wrong, so no
-   fallback can rescue them. Render that sample string before swapping the font.
+   fallback can rescue them. Render that sample string before swapping the font. Request the `latin` subset
+   only — every accent Portuguese needs is in it, and `latin-ext` covers none of
+   them while preloading four unusable files.
 
 ## Structure
 

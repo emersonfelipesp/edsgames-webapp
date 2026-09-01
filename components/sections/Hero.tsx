@@ -51,7 +51,7 @@ export function Hero({ locale, dict }: HeroProps) {
             <ButtonLink href={route(locale, "download")} size="lg">
               {dict.actions.downloadFree}
             </ButtonLink>
-            <ButtonLink href={route(locale, "store")} variant="secondary" size="lg">
+            <ButtonLink href={route(locale, "store")} variant="secondary" size="lg" prefetch={false}>
               {dict.actions.seeStore}
             </ButtonLink>
           </div>

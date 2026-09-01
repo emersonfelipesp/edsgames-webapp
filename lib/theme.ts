@@ -35,7 +35,7 @@ function subscribePreference(onChange: () => void): () => void {
 
 /**
  * The visitor's stored choice. The server answer is "system", which is also
- * what `public/theme-init.js` leaves the document in when nothing is stored,
+ * what the inline theme bootstrap leaves the document in when nothing is stored,
  * so hydration never disagrees with the pre-paint state.
  */
 export function useThemePreference(): ThemePreference {
