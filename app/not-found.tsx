@@ -18,14 +18,18 @@ export default function NotFound() {
       <head>
         <meta httpEquiv="Content-Security-Policy" content={CONTENT_SECURITY_POLICY} />
         <meta name="referrer" content="strict-origin-when-cross-origin" />
+        {/* Synchronous on purpose: deferring it would cause the theme flash
+            it exists to prevent. See the note in the locale layouts. */}
+        {/* eslint-disable-next-line @next/next/no-sync-scripts */}
+        <script src="/theme-init.js" />
       </head>
       <body className="antialiased">
         <main className="grid min-h-dvh place-items-center px-5 py-20 text-center">
           <div>
-            <p className="font-display font-semibold text-xs uppercase tracking-[0.2em] text-neon-magenta">
+            <p className="font-display text-[0.625rem] uppercase tracking-[0.2em] text-neon-magenta">
               404
             </p>
-            <h1 className="text-glitch mt-5 font-display font-semibold text-2xl uppercase sm:text-4xl">
+            <h1 className="text-glitch mt-5 font-display text-2xl uppercase sm:text-4xl">
               {dict.notFound.title}
             </h1>
             <p className="mx-auto mt-6 max-w-md text-sm leading-relaxed text-muted">
@@ -37,14 +41,14 @@ export default function NotFound() {
             <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
               <Link
                 href="/"
-                className="inline-flex min-h-12 items-center justify-center rounded-xl bg-neon-amber px-5 font-display font-semibold text-xs uppercase text-void"
+                className="inline-flex min-h-12 items-center justify-center rounded-xl bg-accent px-5 font-display text-[0.625rem] uppercase text-on-accent"
               >
                 {dict.actions.backToHome}
               </Link>
               <Link
                 href="/en/"
                 lang="en"
-                className="inline-flex min-h-12 items-center justify-center rounded-xl border border-line-bright px-5 font-display font-semibold text-xs uppercase text-muted"
+                className="inline-flex min-h-12 items-center justify-center rounded-xl border border-line-bright px-5 font-display text-[0.625rem] uppercase text-muted"
               >
                 {enDict.actions.backToHome}
               </Link>

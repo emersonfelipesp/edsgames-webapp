@@ -50,14 +50,14 @@ export function VideoFacade({ videoId, label, playLabel }: VideoFacadeProps) {
       <span className="absolute inset-0 grid place-items-center">
         <span
           aria-hidden="true"
-          className="grid size-16 place-items-center rounded-full bg-neon-amber text-void shadow-[0_0_40px_-8px_var(--color-neon-amber)] transition-transform duration-200 group-hover:scale-110 sm:size-20"
+          className="grid size-16 place-items-center rounded-full bg-accent text-on-accent shadow-[0_0_40px_-8px_var(--color-accent)] transition-transform duration-200 group-hover:scale-110 sm:size-20"
         >
           <svg viewBox="0 0 24 24" fill="currentColor" className="ml-1 size-7 sm:size-9">
             <path d="M8 5v14l11-7z" />
           </svg>
         </span>
       </span>
-      <span className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-void/90 to-transparent p-4 text-left font-display font-semibold text-xs uppercase leading-relaxed text-ink sm:p-6 sm:text-sm">
+      <span className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-media-scrim/90 to-transparent p-4 text-left font-display text-[0.625rem] uppercase leading-relaxed text-on-media sm:p-6 sm:text-sm">
         {playLabel}
       </span>
     </button>

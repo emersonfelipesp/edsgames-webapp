@@ -37,6 +37,26 @@ that will break if you do not know them.
 
 6. **No `dangerouslySetInnerHTML`, `eval`, `new Function`, or dynamic script
    injection.** There is no case for any of them in a static marketing site.
+   The pre-paint theme script is a separate same-origin file,
+   `public/theme-init.js`, precisely so that this rule holds. Keep it
+   dependency-free, keep it synchronous — deferring it reintroduces the theme
+   flash it exists to prevent — and keep it wrapped in `try`/`catch`, because
+   `localStorage` throws outright in some privacy modes.
+
+7. **Never hard-code a colour that assumes the dark theme.** Every colour comes
+   from a token in `app/globals.css`, and the light theme redefines those same
+   tokens. Four token pairs deliberately do not invert — `--color-accent` and
+   `--color-on-accent`, `--color-plate`, and `--color-media-scrim` with
+   `--color-on-media` — and they exist so that a call to action, artwork on a
+   dark plate, and text over photography keep working when the ground flips.
+   Reach for those rather than inventing a literal.
+
+8. **The display face must draw accented uppercase.** Portuguese is the default
+   language, and most pixel fonts fail this: Press Start 2P renders "APÓS
+   EXTRAÍDO CONTRIBUIÇÃO" as "APóS EXTRAíDO CONTRIBUIÇAO", and Sixtyfour drops
+   the tilde. Both were tried and rejected. Requesting `latin-ext` does not fix
+   it — those faces *have* the codepoints and simply draw them wrong, so no
+   fallback can rescue them. Render that sample string before swapping the font.
 
 ## Structure
 
@@ -65,8 +85,10 @@ Design tokens are declared once in `app/globals.css` under `@theme`. Use them �
 
 Two things to check when you add a colour or a control:
 
-- **Contrast.** The palette is dark and it is easy to land under WCAG AA.
-  `--color-faint` was already corrected once for exactly this.
+- **Contrast, in both themes.** It is easy to land under WCAG AA on either
+  ground — `--color-faint` was corrected once on dark, and the video-facade
+  caption once on light, where it had been inheriting a token that inverted out
+  from under it. Check a new colour against both palettes.
 - **Display utilities collide.** `ButtonLink` carries `inline-flex` in its base
   class string, so adding `hidden sm:inline-flex` at the call site does *not*
   hide it — which utility wins depends on stylesheet order, not on the order of
@@ -80,5 +102,7 @@ pnpm exec tsc --noEmit
 pnpm build
 ```
 
-If the change is visual, also serve `out/` and look at it at 390 px and 1280 px.
-Mobile-first is a requirement of this project, not a preference.
+If the change is visual, also serve `out/` and look at it at 320 px, 390 px and
+1280 px, **in both themes**. Mobile-first is a requirement of this project, not
+a preference, and 320 px is the width where the header runs out of room first —
+it carries a logo, the language toggle, the theme toggle and the menu button.

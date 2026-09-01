@@ -27,9 +27,14 @@ export function LanguageToggle({ locale, routeKey, dict, className }: LanguageTo
       role="group"
       aria-label={dict.footer.languageLabel}
     >
+      {/* Below `sm` the header has to fit a logo, this control, the theme
+          toggle and the menu button on a 320 px screen, so the current-locale
+          chip drops and only the switch link remains. `sm:grid` is a responsive
+          variant, so it beats `hidden` inside the media query — unlike two
+          unprefixed display utilities, which resolve by stylesheet order. */}
       <span
         aria-current="true"
-        className="grid min-h-11 min-w-11 place-items-center rounded-md bg-neon-cyan/15 px-2.5 font-display text-xs font-bold leading-none text-neon-cyan"
+        className="hidden min-h-11 min-w-11 place-items-center rounded-md bg-neon-cyan/15 px-2.5 font-display text-[0.625rem] leading-none text-neon-cyan sm:grid"
       >
         {dict.localeShort}
       </span>
@@ -37,7 +42,7 @@ export function LanguageToggle({ locale, routeKey, dict, className }: LanguageTo
         href={route(other, routeKey)}
         hrefLang={other}
         lang={other}
-        className="grid min-h-11 min-w-11 place-items-center rounded-md px-2.5 font-display text-xs font-bold leading-none text-muted transition-colors hover:text-ink"
+        className="grid min-h-11 min-w-11 place-items-center rounded-md px-2.5 font-display text-[0.625rem] leading-none text-muted transition-colors hover:text-ink"
       >
         <span className="sr-only">{dict.otherLocaleName}</span>
         <span aria-hidden="true">{dict.otherLocaleShort}</span>

@@ -2,6 +2,7 @@ import Link from "next/link";
 import type { Dictionary, Locale } from "@/lib/i18n";
 import { route, SECTION_IDS, type RouteKey } from "@/lib/routes";
 import { LanguageToggle } from "./LanguageToggle";
+import { ThemeToggle } from "./ThemeToggle";
 import { LOGO_SOURCES, ResponsiveImage } from "@/components/ui/ResponsiveImage";
 
 type FooterProps = {
@@ -32,14 +33,17 @@ export function Footer({ locale, routeKey, dict }: FooterProps) {
             alt={dict.meta.siteName}
             width={1032}
             height={298}
-            className="h-14 w-auto object-contain"
+            className="h-14 w-auto rounded-lg bg-plate object-contain px-2 py-1"
           />
           <p className="mt-4 max-w-xs text-sm leading-relaxed text-muted">{dict.footer.tagline}</p>
-          <LanguageToggle locale={locale} routeKey={routeKey} dict={dict} className="mt-6" />
+          <div className="mt-6 flex items-center gap-2">
+            <LanguageToggle locale={locale} routeKey={routeKey} dict={dict} />
+            <ThemeToggle dict={dict} />
+          </div>
         </div>
 
         <nav aria-label={dict.footer.navTitle}>
-          <h2 className="font-display font-semibold text-xs uppercase tracking-[0.2em] text-neon-cyan">
+          <h2 className="font-display text-[0.625rem] uppercase tracking-[0.2em] text-neon-cyan">
             {dict.footer.navTitle}
           </h2>
           <ul className="mt-2">
@@ -57,7 +61,7 @@ export function Footer({ locale, routeKey, dict }: FooterProps) {
         </nav>
 
         <div>
-          <h2 className="font-display font-semibold text-xs uppercase tracking-[0.2em] text-neon-cyan">
+          <h2 className="font-display text-[0.625rem] uppercase tracking-[0.2em] text-neon-cyan">
             {dict.footer.contactTitle}
           </h2>
           <p className="mt-4 text-sm text-muted">{dict.contact.hours}</p>

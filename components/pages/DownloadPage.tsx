@@ -31,13 +31,13 @@ export function DownloadPage({ locale }: { locale: Locale }) {
       <Section className="bg-abyss">
         <div className="grid gap-6 lg:grid-cols-2">
           <Panel>
-            <h2 className="font-display font-semibold text-sm uppercase leading-relaxed text-neon-cyan">
+            <h2 className="font-display text-[0.6875rem] font-bold uppercase leading-relaxed text-neon-cyan">
               {page.requirementsTitle}
             </h2>
             <p className="mt-4 text-sm leading-relaxed text-muted">{page.requirements}</p>
           </Panel>
           <Panel>
-            <h2 className="font-display font-semibold text-sm uppercase leading-relaxed text-neon-cyan">
+            <h2 className="font-display text-[0.6875rem] font-bold uppercase leading-relaxed text-neon-cyan">
               {page.needTitle}
             </h2>
             <ul className="mt-4 space-y-3">
@@ -51,8 +51,8 @@ export function DownloadPage({ locale }: { locale: Locale }) {
           </Panel>
         </div>
 
-        <Panel className="mt-6 border-red-500/40 bg-red-500/8">
-          <h2 className="font-display font-semibold text-sm uppercase leading-relaxed text-red-400">
+        <Panel className="mt-6 border-danger/40 bg-danger/8">
+          <h2 className="font-display text-[0.6875rem] font-bold uppercase leading-relaxed text-danger">
             {page.warningTitle}
           </h2>
           <p className="mt-4 text-sm leading-relaxed text-ink">{page.warningBody}</p>
@@ -65,7 +65,7 @@ export function DownloadPage({ locale }: { locale: Locale }) {
           {page.tools.map((tool) => (
             <Panel key={tool.name} interactive className="flex flex-col gap-4">
               <div>
-                <h3 className="font-display font-semibold text-sm uppercase leading-relaxed">
+                <h3 className="font-display text-[0.6875rem] font-bold uppercase leading-relaxed">
                   {tool.name}
                 </h3>
                 <p className="mt-3 text-sm text-muted">{tool.description}</p>
@@ -85,7 +85,7 @@ export function DownloadPage({ locale }: { locale: Locale }) {
           {page.downloads.map((item) => (
             <Panel key={item.name} interactive className="flex flex-col gap-5">
               <div>
-                <h3 className="font-display font-semibold text-sm uppercase leading-relaxed text-neon-amber">
+                <h3 className="font-display text-[0.6875rem] font-bold uppercase leading-relaxed text-neon-amber">
                   {item.name}
                 </h3>
                 <p className="mt-3 text-sm leading-relaxed text-muted">{item.description}</p>
@@ -108,7 +108,7 @@ export function DownloadPage({ locale }: { locale: Locale }) {
                 <li key={step} className="flex gap-4">
                   <span
                     aria-hidden="true"
-                    className="grid size-8 shrink-0 place-items-center rounded-lg bg-neon-cyan/10 font-display font-semibold text-xs text-neon-cyan"
+                    className="grid size-8 shrink-0 place-items-center rounded-lg bg-neon-cyan/10 font-display text-[0.625rem] text-neon-cyan"
                   >
                     {String(index + 1).padStart(2, "0")}
                   </span>
@@ -124,7 +124,7 @@ export function DownloadPage({ locale }: { locale: Locale }) {
                 <li key={step} className="flex gap-4">
                   <span
                     aria-hidden="true"
-                    className="grid size-8 shrink-0 place-items-center rounded-lg bg-neon-magenta/10 font-display font-semibold text-xs text-neon-magenta"
+                    className="grid size-8 shrink-0 place-items-center rounded-lg bg-neon-magenta/10 font-display text-[0.625rem] text-neon-magenta"
                   >
                     {String(index + 1).padStart(2, "0")}
                   </span>

@@ -15,8 +15,11 @@ export const metadata: Metadata = buildMetadata({
 });
 
 export const viewport: Viewport = {
-  themeColor: "#06060c",
-  colorScheme: "dark",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#f4f4f9" },
+    { media: "(prefers-color-scheme: dark)", color: "#06060c" },
+  ],
+  colorScheme: "light dark",
 };
 
 export default function EnLayout({ children }: { children: React.ReactNode }) {
@@ -25,6 +28,14 @@ export default function EnLayout({ children }: { children: React.ReactNode }) {
       <head>
         <meta httpEquiv="Content-Security-Policy" content={CONTENT_SECURITY_POLICY} />
         <meta name="referrer" content="strict-origin-when-cross-origin" />
+        {/* Applies a stored theme choice before the first paint, so a visitor
+            who forced light or dark never sees the other one flash. Kept as a
+            same-origin file rather than an inline snippet: this project forbids
+            `dangerouslySetInnerHTML`, and an external file needs no CSP hash.
+            It is deliberately synchronous — deferring it is what would cause
+            the flash it exists to prevent. */}
+        {/* eslint-disable-next-line @next/next/no-sync-scripts */}
+        <script src="/theme-init.js" />
       </head>
       <body className="antialiased">{children}</body>
     </html>

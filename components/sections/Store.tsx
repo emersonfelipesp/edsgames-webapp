@@ -42,14 +42,14 @@ export function Store({ locale, dict, compact = false }: StoreProps) {
             />
             <div className="flex flex-1 flex-col p-6 sm:p-8">
               <div className="flex flex-wrap items-baseline gap-3">
-                <h3 className="font-display font-semibold text-sm uppercase leading-relaxed sm:text-base">
+                <h3 className="font-display text-[0.6875rem] font-bold uppercase leading-relaxed sm:text-base">
                   {product.name}
                 </h3>
-                <span className="rounded-md bg-neon-cyan/10 px-2 py-1 font-display font-semibold text-xs text-neon-cyan">
+                <span className="rounded-md bg-neon-cyan/10 px-2 py-1 font-display text-[0.625rem] text-neon-cyan">
                   {product.capacity}
                 </span>
               </div>
-              <p className="mt-3 font-display font-semibold text-sm uppercase text-neon-amber">
+              <p className="mt-3 font-display text-[0.6875rem] font-bold uppercase text-neon-amber">
                 {product.highlight}
               </p>
               <p className="mt-4 text-sm leading-relaxed text-muted">{product.description}</p>
@@ -76,7 +76,7 @@ export function Store({ locale, dict, compact = false }: StoreProps) {
                 {paragraph}
               </p>
             ))}
-            <p className="font-display font-semibold text-sm uppercase leading-relaxed text-neon-lime">
+            <p className="font-display text-[0.6875rem] font-bold uppercase leading-relaxed text-neon-lime">
               {dict.store.shippingNote}
             </p>
             {/* Descriptive on its own: "Learn more" tells a screen-reader user
@@ -89,7 +89,7 @@ export function Store({ locale, dict, compact = false }: StoreProps) {
           <div className="grid gap-6">
             <LazyScene variant="gamepad" className="h-48 sm:h-56 lg:h-56" />
             <div className="rounded-panel border border-line bg-panel p-6">
-            <p className="font-display font-semibold text-xs uppercase tracking-[0.2em] text-faint">
+            <p className="font-display text-[0.625rem] uppercase tracking-[0.2em] text-faint">
               {dict.store.paymentsLabel}
             </p>
             <Image
@@ -104,7 +104,7 @@ export function Store({ locale, dict, compact = false }: StoreProps) {
               alt=""
               width={1024}
               height={130}
-              className="mt-4 h-auto w-full opacity-80"
+              className="mt-4 h-auto w-full rounded-lg bg-plate px-2 py-1 opacity-80"
             />
             </div>
           </div>

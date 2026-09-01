@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import type { Dictionary, Locale } from "@/lib/i18n";
 import { route, SECTION_IDS, type RouteKey } from "@/lib/routes";
 import { LanguageToggle } from "./LanguageToggle";
+import { ThemeToggle } from "./ThemeToggle";
 import { LOGO_SOURCES, ResponsiveImage } from "@/components/ui/ResponsiveImage";
 import { ButtonLink } from "@/components/ui/Button";
 import { cn } from "@/lib/cn";
@@ -49,16 +50,20 @@ export function Header({ locale, routeKey, dict }: HeaderProps) {
 
   return (
     <header className="sticky top-0 z-50 border-b border-line/70 bg-void/85 backdrop-blur-md">
-      <div className="mx-auto flex h-16 w-full max-w-6xl items-center gap-3 px-5 sm:h-20 sm:px-8">
-        <Link href={home} className="flex shrink-0 items-center" aria-label={dict.meta.siteName}>
+      <div className="mx-auto flex h-16 w-full max-w-6xl items-center gap-2 px-3 sm:h-20 sm:gap-3 sm:px-8">
+        <Link
+          href={home}
+          aria-label={dict.meta.siteName}
+          className="flex shrink-0 items-center rounded-lg bg-plate px-1.5 py-1 sm:px-2"
+        >
           <ResponsiveImage
             sources={LOGO_SOURCES}
-            sizes="(max-width: 640px) 152px, 194px"
+            sizes="(max-width: 359px) 111px, (max-width: 640px) 125px, 194px"
             alt={dict.meta.siteName}
             width={1032}
             height={298}
             priority
-            className="h-11 w-auto object-contain sm:h-14"
+            className="h-8 w-auto object-contain min-[360px]:h-9 sm:h-14"
           />
         </Link>
 
@@ -67,15 +72,16 @@ export function Header({ locale, routeKey, dict }: HeaderProps) {
             <Link
               key={link.href}
               href={link.href}
-              className="rounded-lg px-3 py-2 font-display text-sm font-semibold uppercase tracking-wide text-muted transition-colors hover:text-ink"
+              className="rounded-lg px-3 py-2 font-display text-[0.625rem] uppercase tracking-wide text-muted transition-colors hover:text-ink"
             >
               {link.label}
             </Link>
           ))}
         </nav>
 
-        <div className="ml-auto flex items-center gap-2 lg:ml-3">
+        <div className="ml-auto flex items-center gap-1.5 sm:gap-2 lg:ml-3">
           <LanguageToggle locale={locale} routeKey={routeKey} dict={dict} />
+          <ThemeToggle dict={dict} />
           {/* Wrapped rather than given `hidden` directly: the button's own
               `inline-flex` is a display utility too, and which one wins depends
               on stylesheet order rather than on the order of the class names. */}
@@ -126,7 +132,7 @@ export function Header({ locale, routeKey, dict }: HeaderProps) {
                 <Link
                   href={link.href}
                   onClick={() => setOpen(false)}
-                  className="flex min-h-12 items-center border-b border-line/60 font-display font-semibold text-sm uppercase tracking-wide text-ink"
+                  className="flex min-h-12 items-center border-b border-line/60 font-display text-[0.6875rem] uppercase tracking-wide text-ink"
                 >
                   {link.label}
                 </Link>

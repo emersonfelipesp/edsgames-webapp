@@ -35,11 +35,11 @@ export function Hero({ locale, dict }: HeroProps) {
             {dict.hero.badge}
           </p>
 
-          <h1 className="text-glitch mt-6 font-display text-4xl font-bold uppercase leading-[1.15] text-balance sm:text-6xl lg:text-[4.25rem]">
+          <h1 className="text-glitch mt-6 font-display text-[1.75rem] font-bold uppercase leading-[1.25] text-balance sm:text-5xl lg:text-[3.75rem] lg:leading-[1.15]">
             {dict.hero.title}
           </h1>
 
-          <p className="mt-6 text-base font-medium uppercase leading-relaxed tracking-wide text-neon-cyan sm:text-lg">
+          <p className="mt-6 text-base font-semibold uppercase leading-relaxed tracking-wide text-neon-cyan sm:text-lg">
             {dict.hero.subtitle}
           </p>
 
@@ -61,7 +61,7 @@ export function Hero({ locale, dict }: HeroProps) {
               <div key={stat.label}>
                 <dt className="sr-only">{stat.label}</dt>
                 <dd>
-                  <span className="block font-display text-2xl font-bold text-neon-amber sm:text-3xl">
+                  <span className="block font-display text-xl font-bold text-neon-amber sm:text-3xl">
                     {stat.value}
                   </span>
                   <span className="mt-2 block text-xs leading-snug text-faint sm:text-sm">
