@@ -57,7 +57,7 @@ export function PixSection({ dict, withHeading = true }: PixSectionProps) {
 
         <div className="grid gap-6">
           <Panel>
-            <h3 className="font-display text-sm uppercase leading-relaxed text-neon-cyan">
+            <h3 className="font-display font-semibold text-sm uppercase leading-relaxed text-neon-cyan">
               {pix.howToTitle}
             </h3>
             <ol className="mt-5 space-y-4">
@@ -65,7 +65,7 @@ export function PixSection({ dict, withHeading = true }: PixSectionProps) {
                 <li key={step} className="flex gap-4">
                   <span
                     aria-hidden="true"
-                    className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-neon-cyan/10 font-display text-[0.625rem] text-neon-cyan"
+                    className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-neon-cyan/10 font-display font-semibold text-xs text-neon-cyan"
                   >
                     {index + 1}
                   </span>
@@ -76,7 +76,7 @@ export function PixSection({ dict, withHeading = true }: PixSectionProps) {
           </Panel>
 
           <Panel>
-            <h3 className="font-display text-sm uppercase leading-relaxed text-neon-magenta">
+            <h3 className="font-display font-semibold text-sm uppercase leading-relaxed text-neon-magenta">
               {pix.useTitle}
             </h3>
             <p className="mt-4 text-sm leading-relaxed text-muted">{pix.useDescription}</p>

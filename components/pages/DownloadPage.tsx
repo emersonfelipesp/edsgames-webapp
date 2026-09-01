@@ -4,6 +4,7 @@ import { PageShell } from "@/components/site/PageShell";
 import { Section, SectionHeading } from "@/components/ui/Section";
 import { Panel } from "@/components/ui/Panel";
 import { ButtonLink } from "@/components/ui/Button";
+import { LazyScene } from "@/components/three/LazyScene";
 
 export function DownloadPage({ locale }: { locale: Locale }) {
   const dict = getDictionary(locale);
@@ -30,13 +31,13 @@ export function DownloadPage({ locale }: { locale: Locale }) {
       <Section className="bg-abyss">
         <div className="grid gap-6 lg:grid-cols-2">
           <Panel>
-            <h2 className="font-display text-sm uppercase leading-relaxed text-neon-cyan">
+            <h2 className="font-display font-semibold text-sm uppercase leading-relaxed text-neon-cyan">
               {page.requirementsTitle}
             </h2>
             <p className="mt-4 text-sm leading-relaxed text-muted">{page.requirements}</p>
           </Panel>
           <Panel>
-            <h2 className="font-display text-sm uppercase leading-relaxed text-neon-cyan">
+            <h2 className="font-display font-semibold text-sm uppercase leading-relaxed text-neon-cyan">
               {page.needTitle}
             </h2>
             <ul className="mt-4 space-y-3">
@@ -51,7 +52,7 @@ export function DownloadPage({ locale }: { locale: Locale }) {
         </div>
 
         <Panel className="mt-6 border-red-500/40 bg-red-500/8">
-          <h2 className="font-display text-sm uppercase leading-relaxed text-red-400">
+          <h2 className="font-display font-semibold text-sm uppercase leading-relaxed text-red-400">
             {page.warningTitle}
           </h2>
           <p className="mt-4 text-sm leading-relaxed text-ink">{page.warningBody}</p>
@@ -64,7 +65,7 @@ export function DownloadPage({ locale }: { locale: Locale }) {
           {page.tools.map((tool) => (
             <Panel key={tool.name} interactive className="flex flex-col gap-4">
               <div>
-                <h3 className="font-display text-[0.6875rem] uppercase leading-relaxed">
+                <h3 className="font-display font-semibold text-sm uppercase leading-relaxed">
                   {tool.name}
                 </h3>
                 <p className="mt-3 text-sm text-muted">{tool.description}</p>
@@ -79,11 +80,12 @@ export function DownloadPage({ locale }: { locale: Locale }) {
 
       <Section className="bg-abyss">
         <SectionHeading title={page.downloadsTitle} lead={page.downloadsNote} />
-        <div className="mt-8 grid gap-4 sm:grid-cols-2">
+        <LazyScene variant="cartridges" className="mt-8 h-44 sm:h-52 lg:h-56" />
+        <div className="mt-6 grid gap-4 sm:grid-cols-2">
           {page.downloads.map((item) => (
             <Panel key={item.name} interactive className="flex flex-col gap-5">
               <div>
-                <h3 className="font-display text-[0.6875rem] uppercase leading-relaxed text-neon-amber">
+                <h3 className="font-display font-semibold text-sm uppercase leading-relaxed text-neon-amber">
                   {item.name}
                 </h3>
                 <p className="mt-3 text-sm leading-relaxed text-muted">{item.description}</p>
@@ -106,7 +108,7 @@ export function DownloadPage({ locale }: { locale: Locale }) {
                 <li key={step} className="flex gap-4">
                   <span
                     aria-hidden="true"
-                    className="grid size-8 shrink-0 place-items-center rounded-lg bg-neon-cyan/10 font-display text-[0.5625rem] text-neon-cyan"
+                    className="grid size-8 shrink-0 place-items-center rounded-lg bg-neon-cyan/10 font-display font-semibold text-xs text-neon-cyan"
                   >
                     {String(index + 1).padStart(2, "0")}
                   </span>
@@ -122,7 +124,7 @@ export function DownloadPage({ locale }: { locale: Locale }) {
                 <li key={step} className="flex gap-4">
                   <span
                     aria-hidden="true"
-                    className="grid size-8 shrink-0 place-items-center rounded-lg bg-neon-magenta/10 font-display text-[0.5625rem] text-neon-magenta"
+                    className="grid size-8 shrink-0 place-items-center rounded-lg bg-neon-magenta/10 font-display font-semibold text-xs text-neon-magenta"
                   >
                     {String(index + 1).padStart(2, "0")}
                   </span>

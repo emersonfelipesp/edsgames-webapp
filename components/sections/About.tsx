@@ -2,6 +2,7 @@ import type { Dictionary } from "@/lib/i18n";
 import { SECTION_IDS } from "@/lib/routes";
 import { Section, SectionHeading } from "@/components/ui/Section";
 import { Panel } from "@/components/ui/Panel";
+import { LazyScene } from "@/components/three/LazyScene";
 
 type AboutProps = {
   dict: Dictionary;
@@ -22,7 +23,7 @@ export function About({ dict }: AboutProps) {
           </div>
 
           <Panel className="mt-8 border-neon-amber/30 bg-neon-amber/5">
-            <p className="font-display text-xs uppercase leading-relaxed text-neon-amber">
+            <p className="font-display font-semibold text-xs uppercase leading-relaxed text-neon-amber">
               {dict.about.storageNote.title}
             </p>
             <p className="mt-3 text-sm leading-relaxed text-muted">
@@ -32,18 +33,19 @@ export function About({ dict }: AboutProps) {
         </div>
 
         <div className="grid content-start gap-6">
+          <LazyScene variant="console" />
           {dict.about.systems.map((system, index) => (
             <Panel key={system.name} interactive>
               <p
                 className={
                   index === 0
-                    ? "font-display text-[0.5625rem] uppercase tracking-[0.2em] text-neon-cyan"
-                    : "font-display text-[0.5625rem] uppercase tracking-[0.2em] text-neon-magenta"
+                    ? "font-display font-semibold text-xs uppercase tracking-[0.2em] text-neon-cyan"
+                    : "font-display font-semibold text-xs uppercase tracking-[0.2em] text-neon-magenta"
                 }
               >
                 {system.kind}
               </p>
-              <h3 className="mt-3 font-display text-base uppercase leading-relaxed sm:text-lg">
+              <h3 className="mt-3 font-display font-semibold text-base uppercase leading-relaxed sm:text-lg">
                 {system.name}
               </h3>
               <p className="mt-4 text-sm leading-relaxed text-muted">{system.description}</p>

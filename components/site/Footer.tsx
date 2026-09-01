@@ -38,7 +38,7 @@ export function Footer({ locale, routeKey, dict }: FooterProps) {
         </div>
 
         <nav aria-label={dict.footer.navTitle}>
-          <h2 className="font-display text-[0.625rem] uppercase tracking-[0.2em] text-neon-cyan">
+          <h2 className="font-display font-semibold text-xs uppercase tracking-[0.2em] text-neon-cyan">
             {dict.footer.navTitle}
           </h2>
           <ul className="mt-4 space-y-3">
@@ -53,7 +53,7 @@ export function Footer({ locale, routeKey, dict }: FooterProps) {
         </nav>
 
         <div>
-          <h2 className="font-display text-[0.625rem] uppercase tracking-[0.2em] text-neon-cyan">
+          <h2 className="font-display font-semibold text-xs uppercase tracking-[0.2em] text-neon-cyan">
             {dict.footer.contactTitle}
           </h2>
           <p className="mt-4 text-sm text-muted">{dict.contact.hours}</p>
