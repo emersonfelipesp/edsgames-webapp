@@ -24,7 +24,11 @@ export function PixSection({ dict, withHeading = true }: PixSectionProps) {
           lead={pix.lead}
           align="center"
         />
-      ) : null}
+      ) : (
+        // The contribute page carries the same words as its `h1`, so this level
+        // exists only to keep the heading order continuous for screen readers.
+        <h2 className="sr-only">{pix.title}</h2>
+      )}
 
       <div className="mt-12 grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.15fr)] lg:items-start">
         <Panel className="flex flex-col items-center gap-6 text-center">

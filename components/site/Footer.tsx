@@ -41,10 +41,13 @@ export function Footer({ locale, routeKey, dict }: FooterProps) {
           <h2 className="font-display font-semibold text-xs uppercase tracking-[0.2em] text-neon-cyan">
             {dict.footer.navTitle}
           </h2>
-          <ul className="mt-4 space-y-3">
+          <ul className="mt-2">
             {links.map((link) => (
               <li key={link.href}>
-                <Link href={link.href} className="text-sm text-muted transition-colors hover:text-ink">
+                <Link
+                  href={link.href}
+                  className="flex min-h-11 items-center text-sm text-muted transition-colors hover:text-ink"
+                >
                   {link.label}
                 </Link>
               </li>
@@ -59,7 +62,7 @@ export function Footer({ locale, routeKey, dict }: FooterProps) {
           <p className="mt-4 text-sm text-muted">{dict.contact.hours}</p>
           <a
             href={`mailto:${dict.contact.email}`}
-            className="mt-2 inline-block text-sm text-ink underline decoration-neon-cyan/60 underline-offset-4 transition-colors hover:text-neon-cyan"
+            className="mt-1 inline-flex min-h-11 items-center text-sm text-ink underline decoration-neon-cyan/60 underline-offset-4 transition-colors hover:text-neon-cyan"
           >
             {dict.contact.email}
           </a>

@@ -17,7 +17,9 @@
 
   --color-ink: #f4f4f9;
   --color-muted: #9d9dbb;
-  --color-faint: #6e6e8c;
+  /* #6e6e8c measured 3.6:1 to 4.1:1 on these grounds, below WCAG AA.
+     This value clears 5:1 everywhere while staying quieter than --color-muted. */
+  --color-faint: #8686a6;
 
   --color-neon-cyan: #22e1f2;
   --color-neon-magenta: #f23bd4;

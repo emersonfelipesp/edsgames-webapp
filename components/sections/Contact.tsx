@@ -31,7 +31,7 @@ export function Contact({ dict }: ContactProps) {
             <dd className="mt-3">
               <a
                 href={`mailto:${dict.contact.email}`}
-                className="text-sm text-ink underline decoration-neon-cyan/60 underline-offset-4 transition-colors hover:text-neon-cyan"
+                className="inline-flex min-h-11 items-center text-sm text-ink underline decoration-neon-cyan/60 underline-offset-4 transition-colors hover:text-neon-cyan"
               >
                 {dict.contact.email}
               </a>

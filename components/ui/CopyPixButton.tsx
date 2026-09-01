@@ -64,7 +64,7 @@ export function CopyPixButton({ label, copiedLabel, failedLabel, keyLabel }: Cop
       ) : null}
 
       <details className="mt-5 group">
-        <summary className="cursor-pointer list-none text-sm text-muted underline decoration-line-bright underline-offset-4 transition-colors hover:text-ink">
+        <summary className="inline-flex min-h-11 cursor-pointer list-none items-center text-sm text-muted underline decoration-line-bright underline-offset-4 transition-colors hover:text-ink">
           {keyLabel}
         </summary>
         <textarea
