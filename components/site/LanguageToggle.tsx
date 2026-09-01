@@ -40,6 +40,7 @@ export function LanguageToggle({ locale, routeKey, dict, className }: LanguageTo
       </span>
       <Link
         href={route(other, routeKey)}
+        prefetch={false}
         hrefLang={other}
         lang={other}
         className="grid min-h-11 min-w-11 place-items-center rounded-md px-2.5 font-display text-[0.75rem] leading-none text-muted transition-colors hover:text-ink"

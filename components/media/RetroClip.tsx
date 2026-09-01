@@ -91,7 +91,11 @@ export function RetroClip({ clip, className }: RetroClipProps) {
           <source src={`${base}.webm`} type="video/webm" />
           <source src={`${base}.mp4`} type="video/mp4" />
         </video>
-      ) : (
+      ) : hasBeenInView ? (
+        // The poster only renders once the clip has approached the viewport.
+        // `loading="lazy"` alone is not enough: Chrome's lazy-load distance is
+        // generous on a slow connection, and it was pulling a 25 KB poster for
+        // an below-the-fold clip into the first load.
         // eslint-disable-next-line @next/next/no-img-element
         <img
           src={`${base}.webp`}
@@ -102,6 +106,8 @@ export function RetroClip({ clip, className }: RetroClipProps) {
           decoding="async"
           className="pixelated size-full object-cover"
         />
+      ) : (
+        <div className="bg-grid size-full opacity-30" />
       )}
     </div>
   );

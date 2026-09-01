@@ -30,7 +30,7 @@ const ICONS: Record<ThemePreference, string> = {
  *
  * "System" is a first-class state rather than an implicit default, so a visitor
  * who once chose a theme can hand control back to their operating system. It is
- * also the state the site ships in — `public/theme-init.js` writes nothing
+ * also the state the site ships in — the inline theme bootstrap writes nothing
  * unless a choice has been stored.
  */
 export function ThemeToggle({ dict, className }: ThemeToggleProps) {

@@ -1,10 +1,10 @@
-import Image from "next/image";
 import { getDictionary, type Locale } from "@/lib/i18n";
 import { PageShell } from "@/components/site/PageShell";
 import { Section, SectionHeading } from "@/components/ui/Section";
 import { Panel } from "@/components/ui/Panel";
 import { ButtonLink } from "@/components/ui/Button";
 import { RetroClip } from "@/components/media/RetroClip";
+import { DownloadIntegrity } from "@/components/sections/DownloadIntegrity";
 
 export function DownloadPage({ locale }: { locale: Locale }) {
   const dict = getDictionary(locale);
@@ -99,6 +99,8 @@ export function DownloadPage({ locale }: { locale: Locale }) {
         <p className="mt-6 max-w-3xl text-base leading-relaxed text-faint">{page.expandNote}</p>
       </Section>
 
+      <DownloadIntegrity dict={dict} />
+
       <Section>
         <div className="grid gap-10 lg:grid-cols-2 lg:gap-16">
           <div>
@@ -137,11 +139,14 @@ export function DownloadPage({ locale }: { locale: Locale }) {
       </Section>
 
       <Section className="bg-abyss">
-        <Image
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
           src="/img/consoles.webp"
           alt={page.gamesListAlt}
           width={1080}
           height={1350}
+          loading="lazy"
+          decoding="async"
           className="mx-auto h-auto w-full max-w-4xl rounded-panel border border-line"
         />
       </Section>

@@ -28,6 +28,12 @@ type ButtonLinkProps = {
   variant?: Variant;
   size?: Size;
   external?: boolean;
+  /**
+   * Prefetching a route pulls its whole RSC payload — about 10 KB each here.
+   * Worth it for the primary download call to action, not for every secondary
+   * link on the page.
+   */
+  prefetch?: boolean;
   className?: string;
   children: ReactNode;
 };
@@ -37,6 +43,7 @@ export function ButtonLink({
   variant = "primary",
   size = "md",
   external = false,
+  prefetch,
   className,
   children,
 }: ButtonLinkProps) {
@@ -51,7 +58,7 @@ export function ButtonLink({
   }
 
   return (
-    <Link href={href} className={classes}>
+    <Link href={href} prefetch={prefetch} className={classes}>
       {children}
     </Link>
   );

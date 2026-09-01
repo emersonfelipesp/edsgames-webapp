@@ -53,6 +53,7 @@ export function Header({ locale, routeKey, dict }: HeaderProps) {
       <div className="mx-auto flex h-16 w-full max-w-6xl items-center gap-2 px-3 sm:h-20 sm:gap-3 sm:px-8">
         <Link
           href={home}
+          prefetch={false}
           aria-label={dict.meta.siteName}
           className="flex shrink-0 items-center rounded-lg bg-plate px-1.5 py-1 sm:px-2"
         >
@@ -72,6 +73,7 @@ export function Header({ locale, routeKey, dict }: HeaderProps) {
             <Link
               key={link.href}
               href={link.href}
+              prefetch={false}
               className="rounded-lg px-3 py-2 font-display text-[0.75rem] uppercase tracking-wide text-muted transition-colors hover:text-ink"
             >
               {link.label}
@@ -131,6 +133,7 @@ export function Header({ locale, routeKey, dict }: HeaderProps) {
               <li key={link.href}>
                 <Link
                   href={link.href}
+                  prefetch={false}
                   onClick={() => setOpen(false)}
                   className="flex min-h-12 items-center border-b border-line/60 font-display text-[0.8125rem] uppercase tracking-wide text-ink"
                 >

@@ -1,4 +1,3 @@
-import Image from "next/image";
 import type { Dictionary } from "@/lib/i18n";
 import { Section, SectionHeading } from "@/components/ui/Section";
 import { Panel } from "@/components/ui/Panel";
@@ -30,11 +29,14 @@ export function Testimonials({ dict }: TestimonialsProps) {
                 </span>
               </blockquote>
               <figcaption className="mt-6 flex items-center gap-4 border-t border-line pt-5">
-                <Image
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
                   src={item.avatar}
                   alt=""
                   width={80}
                   height={80}
+                  loading="lazy"
+                  decoding="async"
                   className="size-11 rounded-full border border-line object-cover"
                 />
                 <span>

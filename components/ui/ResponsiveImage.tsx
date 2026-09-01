@@ -58,6 +58,7 @@ export const LOGO_SOURCES = [
 
 export const INTERFACE_SOURCES = [
   ["/img/interface-480.webp", 480],
+  ["/img/interface-640.webp", 640],
   ["/img/interface-800.webp", 800],
   ["/img/interface.webp", 1600],
 ] as const;

@@ -23,7 +23,13 @@ export function VideoFacade({ videoId, label, playLabel }: VideoFacadeProps) {
         <iframe
           src={`https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1`}
           title={label}
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          // Only what playback actually needs. The default YouTube embed snippet
+          // also asks for clipboard-write, accelerometer and gyroscope; none of
+          // them are used to play a video, and this frame is third-party.
+          allow="autoplay; encrypted-media; fullscreen; picture-in-picture"
+          // `allow-same-origin` here means youtube-nocookie.com's own origin, not
+          // ours, so the frame still cannot reach this document.
+          sandbox="allow-scripts allow-same-origin allow-presentation allow-popups allow-popups-to-escape-sandbox"
           allowFullScreen
           referrerPolicy="strict-origin-when-cross-origin"
           className="absolute inset-0 size-full"

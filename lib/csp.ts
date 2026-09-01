@@ -22,14 +22,16 @@ export const CONTENT_SECURITY_POLICY = [
   // header instead — see `public/_headers` and DEPLOYMENT.md.
   "script-src 'self' 'unsafe-inline'",
   "style-src 'self' 'unsafe-inline'",
-  "img-src 'self' data: blob:",
+  "img-src 'self' data:",
   "font-src 'self'",
   "connect-src 'self'",
   "media-src 'self'",
   // The only third-party origin on the site, and only after the visitor clicks
   // the video facade.
   "frame-src https://www.youtube-nocookie.com",
-  "worker-src 'self' blob:",
+  // Nothing in the codebase creates a Blob, an object URL or a Worker.
+  // `blob:` was here for the Three.js scenes and outlived them.
+  "worker-src 'self'",
   "manifest-src 'self'",
   "upgrade-insecure-requests",
 ].join("; ");

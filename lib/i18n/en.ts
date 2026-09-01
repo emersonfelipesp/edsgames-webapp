@@ -337,13 +337,29 @@ export const en: Dictionary = {
         name: "EDSBATOCERA-V32GB",
         description: "Bootable GNU/Linux system, written to a USB stick or hard drive.",
         href: "https://sub4unlock.io/T2Am7",
+        checksum: null,
       },
       {
         name: "EDSRETROBAT-V32GB",
         description: "Executable that runs inside Windows.",
         href: "https://sub4unlock.io/lCE4g",
+        checksum: null,
       },
     ],
+    integrityTitle: "Check the file before you write it",
+    integrityLead:
+      "Writing a system image erases the whole device, and a file swapped in transit becomes a compromised system running on your computer. Check the downloaded file's SHA-256 checksum before you use it. If it does not match the one published here, delete the file and download it again.",
+    integrityUnverified:
+      "We have not published a checksum for this file yet. Until we do, download only through the official links on this page, and treat any copy obtained elsewhere as suspect.",
+    checksumLabel: "SHA-256",
+    verifyTitle: "How to check",
+    verifySteps: [
+      { os: "Windows", command: "certutil -hashfile FILE.zip SHA256" },
+      { os: "Linux", command: "sha256sum FILE.zip" },
+      { os: "macOS", command: "shasum -a 256 FILE.zip" },
+    ],
+    thirdPartyNote:
+      "The download links pass through an external unlock site, which is not ours and may show adverts. Do not enter passwords or personal details there: all it needs to do is release the file.",
     stepsTitle: "EDSBATOCERA instructions",
     steps: [
       "Once the download finishes, open the folder where you saved the file.",

@@ -19,7 +19,7 @@ import { IBM_Plex_Mono, Silkscreen } from "next/font/google";
  */
 export const silkscreen = Silkscreen({
   weight: ["400", "700"],
-  subsets: ["latin", "latin-ext"],
+  subsets: ["latin"],
   display: "swap",
   variable: "--font-silkscreen",
 });
@@ -32,7 +32,7 @@ export const silkscreen = Silkscreen({
  */
 export const plexMono = IBM_Plex_Mono({
   weight: ["400", "600"],
-  subsets: ["latin", "latin-ext"],
+  subsets: ["latin"],
   display: "swap",
   variable: "--font-plex-mono",
 });

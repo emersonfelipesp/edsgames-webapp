@@ -1,4 +1,3 @@
-import Image from "next/image";
 import type { Dictionary, Locale } from "@/lib/i18n";
 import { route, SECTION_IDS } from "@/lib/routes";
 import { Section, SectionHeading } from "@/components/ui/Section";
@@ -81,7 +80,7 @@ export function Store({ locale, dict, compact = false }: StoreProps) {
             </p>
             {/* Descriptive on its own: "Learn more" tells a screen-reader user
                 cycling through links nothing about where it goes. */}
-            <ButtonLink href={route(locale, "store")} size="lg">
+            <ButtonLink href={route(locale, "store")} size="lg" prefetch={false}>
               {dict.store.cta}
             </ButtonLink>
           </div>
@@ -92,18 +91,24 @@ export function Store({ locale, dict, compact = false }: StoreProps) {
             <p className="font-display text-[0.75rem] uppercase tracking-[0.2em] text-faint">
               {dict.store.paymentsLabel}
             </p>
-            <Image
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
               src="/img/appmax.webp"
               alt={dict.store.paymentsLabel}
               width={948}
               height={360}
+              loading="lazy"
+              decoding="async"
               className="mt-4 h-auto w-full rounded-lg bg-white/95 p-3"
             />
-            <Image
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
               src="/img/selos-compra-segura.webp"
               alt=""
               width={1024}
               height={130}
+              loading="lazy"
+              decoding="async"
               className="mt-4 h-auto w-full rounded-lg bg-plate px-2 py-1 opacity-80"
             />
             </div>

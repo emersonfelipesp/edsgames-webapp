@@ -49,8 +49,12 @@ export function Footer({ locale, routeKey, dict }: FooterProps) {
           <ul className="mt-2">
             {links.map((link) => (
               <li key={link.href}>
+                {/* Footer links are not a likely next click, and prefetching all
+                    of them pulled ~46 KB of RSC payload on first load - more
+                    than the document itself. */}
                 <Link
                   href={link.href}
+                  prefetch={false}
                   className="flex min-h-11 items-center text-base text-muted transition-colors hover:text-ink"
                 >
                   {link.label}

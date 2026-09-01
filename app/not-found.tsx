@@ -2,6 +2,7 @@ import Link from "next/link";
 import { getDictionary } from "@/lib/i18n";
 import { fontVariables } from "@/lib/fonts";
 import { CONTENT_SECURITY_POLICY } from "@/lib/csp";
+import { THEME_INIT_SCRIPT } from "@/lib/theme-init-script";
 import "./globals.css";
 
 const dict = getDictionary("pt-BR");
@@ -18,10 +19,7 @@ export default function NotFound() {
       <head>
         <meta httpEquiv="Content-Security-Policy" content={CONTENT_SECURITY_POLICY} />
         <meta name="referrer" content="strict-origin-when-cross-origin" />
-        {/* Synchronous on purpose: deferring it would cause the theme flash
-            it exists to prevent. See the note in the locale layouts. */}
-        {/* eslint-disable-next-line @next/next/no-sync-scripts */}
-        <script src="/theme-init.js" />
+        <script>{THEME_INIT_SCRIPT}</script>
       </head>
       <body className="antialiased">
         <main className="grid min-h-dvh place-items-center px-5 py-20 text-center">
