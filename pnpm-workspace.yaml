@@ -1,3 +1,5 @@
+engineStrict: true
+
 ignoredBuiltDependencies:
   - sharp
   - unrs-resolver

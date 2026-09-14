@@ -115,7 +115,11 @@ Two things to check when you add a colour or a control:
 
 ## Before you finish
 
+Use Node.js 22 LTS and pnpm 10.32.1. The package metadata rejects unsupported
+Node.js release lines, and CI currently verifies Node.js 22.23.2.
+
 ```bash
+pnpm audit --audit-level=low
 pnpm lint
 pnpm exec tsc --noEmit
 pnpm build

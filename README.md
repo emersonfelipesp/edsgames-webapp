@@ -131,7 +131,8 @@ on white is about 1.6:1 and unreadable.
 
 ## Getting started
 
-Requires Node.js 20 or newer and pnpm.
+Requires Node.js 22 LTS and pnpm 10.32.1. The project enforces the Node.js 22
+release line through its package metadata and tests with Node.js 22.23.2 in CI.
 
 ```bash
 pnpm install
@@ -142,6 +143,7 @@ Other scripts:
 
 ```bash
 pnpm build      # static export into ./out
+pnpm audit --audit-level=low
 pnpm lint       # ESLint
 pnpm exec tsc --noEmit
 ```
