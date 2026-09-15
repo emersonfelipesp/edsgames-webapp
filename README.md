@@ -9,6 +9,10 @@ Font Awesome, a Meta Pixel and a Mailchimp tag, all pulled from seven different
 CDNs. This repository keeps every word of that site and replaces everything
 underneath it.
 
+**Install guides:** [English](./docs/INSTALL.en.md) ·
+[Português (Brasil)](./docs/INSTALL.pt-BR.md) — how to run locally and build
+for production.
+
 ---
 
 ## Table of contents
