@@ -18,6 +18,7 @@ underneath it.
 - [Type](#type)
 - [Themes](#themes)
 - [Getting started](#getting-started)
+- [Install guides](#install-guides)
 - [Project structure](#project-structure)
 - [Editing the copy](#editing-the-copy)
 - [The PIX payload](#the-pix-payload)
@@ -154,6 +155,19 @@ exactly what will be deployed:
 ```bash
 pnpm build && npx serve out
 ```
+
+For step-by-step setup, development workflow and production build instructions,
+see the [install guides](#install-guides).
+
+## Install guides
+
+| Language | Document |
+|---|---|
+| English | [docs/INSTALL.en.md](./docs/INSTALL.en.md) |
+| Português (Brasil) | [docs/INSTALL.pt-BR.md](./docs/INSTALL.pt-BR.md) |
+
+Both guides cover prerequisites, local development, building the static export,
+previewing `out/`, and deploying to production.
 
 ## Project structure
 
